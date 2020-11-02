@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2.xsd" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file datatype="plaintext" original="en-US.xlf" source-language="en-US">
+		<body>
+			<group id="language">
+				<trans-unit id="name">
+					<source>English (United States)</source>
+				</trans-unit>
+				<trans-unit id="contributors">
+					<source>Unknown</source>
+				</trans-unit>
+				<trans-unit id="last_updated">
+					<source>2019-06-29</source>
+				</trans-unit>
+			</group>
+      
+      <group id="bpmcore">
+        <group id="context">
+          <trans-unit id="downloadmetadata">
+            <source>Downloading metadata of {0}</source>
+          </trans-unit>
+          <trans-unit id="alreadyinstalled">
+            <source>{0} {1} is already installed</source>
+          </trans-unit>
+          <trans-unit id="willinstall">
+            <source>Will install {0} {1}</source>
+          </trans-unit>
+          <trans-unit id="cannotlatest">
+            <source>Cannot install the latest version {0} of {1} due to dependency constraints</source>
+          </trans-unit>
+          <trans-unit id="requires">
+            <source>{0} requires [{1}]</source>
+          </trans-unit>
+          <trans-unit id="downloading">
+            <source>Downloading {0} ...</source>
+          </trans-unit>
+          <trans-unit id="installing">
+            <source>Installing {0} ...</source>
+          </trans-unit>
+        </group>
+        <group id="exception">
+          <trans-unit id="dependency1">
+            <source>Dependency confliction encountered when processing {0}:\n{1}</source>
+          </trans-unit>
+          <trans-unit id="dependency2">
+            <source>Dependency confliction encountered when processing {0} required by {1}:\n{2}</source>
+          </trans-unit>
+          <trans-unit id="uninstalldependency">
+            <source>The package to be uninstalled is required by other packages, so it cannot be removed.</source>
+          </trans-unit>
+          <trans-unit id="blame">
+            <source>Some of the packages related to the problem:</source>
+          </trans-unit>
+          <trans-unit id="notfound">
+            <source>Cannot find the requested package: {0}</source>
+          </trans-unit>
+          <trans-unit id="badrange1">
+            <source>Version requirements of the dependency constraints conflicted with each other.</source>
+          </trans-unit>
+          <trans-unit id="badrange2">
+            <source>A version to satisfy the requirements of the dependency constraints is not available.</source>
+          <trans-unit id="constraint">
+            <source>Constraint {0,12}: {1}{2}</source>
+          </trans-unit>
+          </trans-unit>
+        </group>
+      </group>
+      
+      <group id="bpmgui">
+        <group id="mainform">
+          <trans-unit id="btninstallpack">
+            <source>Install Pack</source>
+          </trans-unit>
+          <trans-unit id="btnuninstallpack">
+            <source>Uninstall Pack</source>
+          </trans-unit>
+          <trans-unit id="btnconfig">
+            <source>Config</source>
+          </trans-unit>
+          <trans-unit id="btnconfiga">
+            <source>Approve</source>
+          </trans-unit>
+          <trans-unit id="btnremove">
+            <source>Remove</source>
+          </trans-unit>
+          <trans-unit id="btnremovea">
+            <source>Disable</source>
+          </trans-unit>
+        </group>
+        <group id="reglistbox">
+          <trans-unit id="warnautodet">
+            <source>Auto-detected, Please Check Path</source>
+          </trans-unit>
+          <trans-unit id="headerautodet">
+            <source>▼ Auto-detected registeries awaiting approval</source>
+          </trans-unit>
+        </group>
+        <group id="msg">
+          <trans-unit id="err">
+            <source>Error</source>
+          </trans-unit>
+          <trans-unit id="warn">
+            <source>Warning</source>
+          </trans-unit>
+          <trans-unit id="info">
+            <source>Info</source>
+          </trans-unit>
+          <trans-unit id="disableautodet">
+            <source>Are you sure you want to disable the auto-detection of this registry? Don't worry, you can add it back later in the settings.</source>
+          </trans-unit>
+          <trans-unit id="removereg">
+            <source>Are you sure you want to remove this registry?</source>
+          </trans-unit>
+          <trans-unit id="approvereg">
+            <source>Are you sure you want to approve the auto-detected registry? Please make sure its parameters are correct. To cancel the approval, simply delete the approved registry.</source>
+          </trans-unit>
+        </group>
+        <group id="debug">
+          <trans-unit id="regmanoutofsync">
+            <source>RegistryManager out of sync with UI. This is a bug, inform developer.</source>
+          </trans-unit>
+        </group>
+      </group>
+		</body>
+	</file>
+</xliff>
