@@ -110,7 +110,7 @@ namespace Zbx1425.PackManGui {
 			}
 			set {
 				sealBorderColor = value;
-				sealBorderPen = new Pen(sealBorderColor);
+				sealBorderPen = new Pen(sealBorderColor, 2);
 			}
 		}
 		
@@ -176,9 +176,9 @@ namespace Zbx1425.PackManGui {
 			string[] hiddenProps = { "PlatformName", "IsFromAutoDetect" };
 			return obj.GetType().GetProperties()
 				.Where(p => !hiddenProps.Contains(p.Name))
-				.Select(p => new Tuple<string, string>(p.Name, 
-                   "The End Is Never The End Is Never The End Is Never The End Is Never The End"))// HACK: Testing
-				// .Select(p => new Tuple<string, string>(p.Name, p.GetValue(obj).ToString()))
+				//.Select(p => new Tuple<string, string>(p.Name, 
+                //   "The End Is Never The End Is Never The End Is Never The End Is Never The End")) Testing
+				 .Select(p => new Tuple<string, string>(p.Name, p.GetValue(obj).ToString()))
 				.ToArray();
 		}
 		
@@ -242,11 +242,11 @@ namespace Zbx1425.PackManGui {
 				if (atSplitPosition)
 					e.Graphics.TranslateTransform(0, Convert.ToInt32((VMajorPadding + 1) * FontHeight));
 			}
-			e.Graphics.DrawLine(Pens.Navy, 
+			e.Graphics.FillRectangle(idBrush, 
 				Convert.ToInt32(e.Bounds.X + HPadding * FontHeight),
 				Convert.ToInt32(e.Bounds.Y + (VMajorPadding + BigFontSize) * FontHeight),
 				e.Bounds.Width,
-				Convert.ToInt32(e.Bounds.Y + (VMajorPadding + BigFontSize) * FontHeight)
+				2
 			);
 			var stringFormatA = new StringFormat(StringFormatFlags.NoWrap) {
 				LineAlignment = StringAlignment.Center,
@@ -261,8 +261,8 @@ namespace Zbx1425.PackManGui {
 				Alignment = StringAlignment.Far,
 				Trimming = StringTrimming.EllipsisCharacter 
 			};
-			// e.Graphics.DrawString(item.PlatformName, bigFont, textBrush,
-			   e.Graphics.DrawString("Test", bigFont, textBrush, // HACK: Testing
+			 e.Graphics.DrawString(item.PlatformName, bigFont, textBrush,
+			//   e.Graphics.DrawString("Test", bigFont, textBrush, // Testing
 				new Rectangle(
 					Convert.ToInt32(e.Bounds.X + HPadding * FontHeight),
 					Convert.ToInt32(e.Bounds.Y + VMajorPadding * FontHeight),
@@ -270,9 +270,9 @@ namespace Zbx1425.PackManGui {
 					Convert.ToInt32(FontHeight * BigFontSize)
 				), stringFormatA
 			);
-			// var titleOffsetA = e.Graphics.MeasureString(item.PlatformName, bigFont).Width;
-			var titleOffsetA = e.Graphics.MeasureString("Test", bigFont).Width;
-			e.Graphics.DrawString(item.GetHashCode().ToString("X8"), bigFont, idBrush,
+			var titleOffsetA = e.Graphics.MeasureString(item.PlatformName, bigFont).Width;
+			// var titleOffsetA = e.Graphics.MeasureString("Test", bigFont).Width;
+			e.Graphics.DrawString(item.GetHashCode().ToString("X8"), bigFont, secondaryBrush,
 				new Rectangle(
 					Convert.ToInt32(e.Bounds.X + HPadding * 2 * FontHeight + titleOffsetA),
 					Convert.ToInt32(e.Bounds.Y + VMajorPadding * FontHeight),
@@ -311,13 +311,13 @@ namespace Zbx1425.PackManGui {
 			}
 			if (atSplitPosition) {
 				e.Graphics.ResetTransform();
-				e.Graphics.FillRectangle(Brushes.DarkSlateGray,
+				e.Graphics.FillRectangle(idBrush,
 					new Rectangle(e.Bounds.X, e.Bounds.Y, e.Bounds.Width, Convert.ToInt32((VMajorPadding + 1) * FontHeight))
 				);
 				e.Graphics.DrawRectangle(borderPen,
 					new Rectangle(e.Bounds.X, e.Bounds.Y, e.Bounds.Width, Convert.ToInt32((VMajorPadding + 1) * FontHeight))
 				);
-				e.Graphics.DrawString(I._("bpmgui_reglistbox_headerautodet"), Font, secondaryBrush,
+				e.Graphics.DrawString(I._("bpmgui_reglistbox_headerautodet"), Font, textBrush,
 					new Rectangle(e.Bounds.X, e.Bounds.Y, e.Bounds.Width, FontHeight), stringFormatA
 				);
 				if (e.State.HasFlag(DrawItemState.Selected)) {

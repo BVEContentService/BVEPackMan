@@ -60,21 +60,21 @@ namespace Zbx1425.PackManGui
 			this.localRegistryListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 			| System.Windows.Forms.AnchorStyles.Left) 
 			| System.Windows.Forms.AnchorStyles.Right)));
-			this.localRegistryListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(71)))), ((int)(((byte)(79)))));
-			this.localRegistryListBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(125)))), ((int)(((byte)(139)))));
+			this.localRegistryListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(57)))), ((int)(((byte)(46)))));
+			this.localRegistryListBox.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(97)))), ((int)(((byte)(86)))));
 			this.localRegistryListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.localRegistryListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
 			this.localRegistryListBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
 			this.localRegistryListBox.FormattingEnabled = true;
-			this.localRegistryListBox.IDColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(203)))), ((int)(((byte)(196)))));
+			this.localRegistryListBox.IDColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(155)))), ((int)(((byte)(156)))));
 			this.localRegistryListBox.ItemHeight = 12;
 			this.localRegistryListBox.Location = new System.Drawing.Point(13, 73);
 			this.localRegistryListBox.Name = "localRegistryListBox";
-			this.localRegistryListBox.SealBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(168)))), ((int)(((byte)(218)))));
-			this.localRegistryListBox.SealColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(107)))), ((int)(((byte)(192)))));
-			this.localRegistryListBox.SecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-			this.localRegistryListBox.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(125)))), ((int)(((byte)(139)))));
-			this.localRegistryListBox.Size = new System.Drawing.Size(658, 282);
+			this.localRegistryListBox.SealBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+			this.localRegistryListBox.SealColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(137)))), ((int)(((byte)(126)))));
+			this.localRegistryListBox.SecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
+			this.localRegistryListBox.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(77)))), ((int)(((byte)(66)))));
+			this.localRegistryListBox.Size = new System.Drawing.Size(659, 322);
 			this.localRegistryListBox.TabIndex = 0;
 			this.localRegistryListBox.WarnColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(213)))), ((int)(((byte)(79)))));
 			this.localRegistryListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.LocalRegistryListBox1DrawItem);
@@ -82,7 +82,7 @@ namespace Zbx1425.PackManGui
 			// 
 			// contextActionPanel
 			// 
-			this.contextActionPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(92)))), ((int)(((byte)(107)))), ((int)(((byte)(192)))));
+			this.contextActionPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(137)))), ((int)(((byte)(126)))));
 			this.contextActionPanel.Controls.Add(this.btnRemove);
 			this.contextActionPanel.Controls.Add(this.btnMoveDown);
 			this.contextActionPanel.Controls.Add(this.btnMoveUp);
@@ -99,10 +99,11 @@ namespace Zbx1425.PackManGui
 			// 
 			// btnRemove
 			// 
-			this.btnRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(154)))), ((int)(((byte)(154)))));
+			this.btnRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(221)))), ((int)(((byte)(205)))));
 			this.btnRemove.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(216)))), ((int)(((byte)(220)))));
 			this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnRemove.Location = new System.Drawing.Point(444, 8);
+			this.btnRemove.ForeColor = System.Drawing.Color.Brown;
+			this.btnRemove.Location = new System.Drawing.Point(442, 6);
 			this.btnRemove.Name = "btnRemove";
 			this.btnRemove.Size = new System.Drawing.Size(70, 26);
 			this.btnRemove.TabIndex = 6;
@@ -112,10 +113,10 @@ namespace Zbx1425.PackManGui
 			// 
 			// btnMoveDown
 			// 
-			this.btnMoveDown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(168)))), ((int)(((byte)(218)))));
+			this.btnMoveDown.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(221)))), ((int)(((byte)(205)))));
 			this.btnMoveDown.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(216)))), ((int)(((byte)(220)))));
 			this.btnMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnMoveDown.Location = new System.Drawing.Point(407, 8);
+			this.btnMoveDown.Location = new System.Drawing.Point(405, 6);
 			this.btnMoveDown.Name = "btnMoveDown";
 			this.btnMoveDown.Size = new System.Drawing.Size(30, 26);
 			this.btnMoveDown.TabIndex = 5;
@@ -125,10 +126,10 @@ namespace Zbx1425.PackManGui
 			// 
 			// btnMoveUp
 			// 
-			this.btnMoveUp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(168)))), ((int)(((byte)(218)))));
+			this.btnMoveUp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(221)))), ((int)(((byte)(205)))));
 			this.btnMoveUp.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(216)))), ((int)(((byte)(220)))));
 			this.btnMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnMoveUp.Location = new System.Drawing.Point(371, 8);
+			this.btnMoveUp.Location = new System.Drawing.Point(369, 6);
 			this.btnMoveUp.Name = "btnMoveUp";
 			this.btnMoveUp.Size = new System.Drawing.Size(30, 26);
 			this.btnMoveUp.TabIndex = 4;
@@ -138,10 +139,10 @@ namespace Zbx1425.PackManGui
 			// 
 			// btnConfig
 			// 
-			this.btnConfig.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(168)))), ((int)(((byte)(218)))));
+			this.btnConfig.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(221)))), ((int)(((byte)(205)))));
 			this.btnConfig.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(216)))), ((int)(((byte)(220)))));
 			this.btnConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnConfig.Location = new System.Drawing.Point(295, 8);
+			this.btnConfig.Location = new System.Drawing.Point(293, 6);
 			this.btnConfig.Name = "btnConfig";
 			this.btnConfig.Size = new System.Drawing.Size(70, 26);
 			this.btnConfig.TabIndex = 3;
@@ -151,10 +152,10 @@ namespace Zbx1425.PackManGui
 			// 
 			// btnUninstallPack
 			// 
-			this.btnUninstallPack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(168)))), ((int)(((byte)(218)))));
+			this.btnUninstallPack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(221)))), ((int)(((byte)(205)))));
 			this.btnUninstallPack.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(216)))), ((int)(((byte)(220)))));
 			this.btnUninstallPack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnUninstallPack.Location = new System.Drawing.Point(135, 8);
+			this.btnUninstallPack.Location = new System.Drawing.Point(133, 6);
 			this.btnUninstallPack.Name = "btnUninstallPack";
 			this.btnUninstallPack.Size = new System.Drawing.Size(120, 26);
 			this.btnUninstallPack.TabIndex = 2;
@@ -163,10 +164,10 @@ namespace Zbx1425.PackManGui
 			// 
 			// btnInstallPack
 			// 
-			this.btnInstallPack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(159)))), ((int)(((byte)(168)))), ((int)(((byte)(218)))));
+			this.btnInstallPack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(221)))), ((int)(((byte)(205)))));
 			this.btnInstallPack.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(216)))), ((int)(((byte)(220)))));
 			this.btnInstallPack.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnInstallPack.Location = new System.Drawing.Point(9, 8);
+			this.btnInstallPack.Location = new System.Drawing.Point(7, 6);
 			this.btnInstallPack.Name = "btnInstallPack";
 			this.btnInstallPack.Size = new System.Drawing.Size(120, 26);
 			this.btnInstallPack.TabIndex = 1;
@@ -180,7 +181,7 @@ namespace Zbx1425.PackManGui
 			this.menuSettings});
 			this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
 			this.mainMenuStrip.Name = "mainMenuStrip";
-			this.mainMenuStrip.Size = new System.Drawing.Size(683, 25);
+			this.mainMenuStrip.Size = new System.Drawing.Size(684, 25);
 			this.mainMenuStrip.TabIndex = 2;
 			this.mainMenuStrip.Text = "mainMenuStrip";
 			// 
@@ -199,8 +200,8 @@ namespace Zbx1425.PackManGui
 			// MainForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(50)))), ((int)(((byte)(56)))));
-			this.ClientSize = new System.Drawing.Size(683, 371);
+			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(37)))), ((int)(((byte)(26)))));
+			this.ClientSize = new System.Drawing.Size(684, 411);
 			this.Controls.Add(this.contextActionPanel);
 			this.Controls.Add(this.localRegistryListBox);
 			this.Controls.Add(this.mainMenuStrip);

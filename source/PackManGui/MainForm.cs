@@ -28,7 +28,7 @@ namespace Zbx1425.PackManGui {
 			AssertListSync();
 		}
 		
-		private Color[] btnColors = {Color.FromArgb(59, 68, 88), Color.FromArgb(159, 168, 218)};
+		private Color[] btnColors = {Color.FromArgb(121, 121, 105), Color.FromArgb(221, 221, 205)};
 		
 		void LocalRegistryListBoxSelectedValueChanged(object sender, EventArgs e) {
 			var item = (IRegistry)localRegistryListBox.SelectedItem;
@@ -69,11 +69,11 @@ namespace Zbx1425.PackManGui {
 				}
 			}
 		}
-		private Pen capBorderPen = new Pen(Color.FromArgb(159, 168, 218));
-		private Pen capSealPen = new Pen(Color.FromArgb(92, 107, 192));
+		private Pen capBorderPen = new Pen(Color.FromArgb(10, 10, 10), 3);
+		private Pen capSealPen = new Pen(Color.FromArgb(135, 137, 126), 4);
 		void ContextActionPanelPaint(object sender, PaintEventArgs e) {
-			e.Graphics.DrawRectangle(capBorderPen, 0, 0, contextActionPanel.Width - 1, contextActionPanel.Height - 1);
-			e.Graphics.DrawLine(capSealPen, 266, contextActionPanel.Height - 1, 284, contextActionPanel.Height - 1);
+			e.Graphics.DrawRectangle(capBorderPen, -2, -2, contextActionPanel.Width, contextActionPanel.Height);
+			e.Graphics.DrawLine(capSealPen, 266, contextActionPanel.Height - 1, 284, contextActionPanel.Height - 2);
 		}
 		void MainFormResizeBegin(object sender, EventArgs e) {
 			// Dirty workaround to reduce flickering.
