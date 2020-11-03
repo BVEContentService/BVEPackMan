@@ -71,7 +71,7 @@ namespace Zbx1425.PackManGui
 			this.localRegistryListBox.Location = new System.Drawing.Point(13, 73);
 			this.localRegistryListBox.Name = "localRegistryListBox";
 			this.localRegistryListBox.SealBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
-			this.localRegistryListBox.SealColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(137)))), ((int)(((byte)(126)))));
+			this.localRegistryListBox.SealColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(205)))), ((int)(((byte)(206)))));
 			this.localRegistryListBox.SecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
 			this.localRegistryListBox.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(77)))), ((int)(((byte)(66)))));
 			this.localRegistryListBox.Size = new System.Drawing.Size(659, 322);
@@ -82,7 +82,7 @@ namespace Zbx1425.PackManGui
 			// 
 			// contextActionPanel
 			// 
-			this.contextActionPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(137)))), ((int)(((byte)(126)))));
+			this.contextActionPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(205)))), ((int)(((byte)(206)))));
 			this.contextActionPanel.Controls.Add(this.btnRemove);
 			this.contextActionPanel.Controls.Add(this.btnMoveDown);
 			this.contextActionPanel.Controls.Add(this.btnMoveUp);
@@ -176,6 +176,7 @@ namespace Zbx1425.PackManGui
 			// 
 			// mainMenuStrip
 			// 
+			this.mainMenuStrip.BackColor = System.Drawing.SystemColors.Control;
 			this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
 			this.menuAddRegistry,
 			this.menuSettings});
@@ -187,12 +188,14 @@ namespace Zbx1425.PackManGui
 			// 
 			// menuAddRegistry
 			// 
+			this.menuAddRegistry.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.menuAddRegistry.Name = "menuAddRegistry";
 			this.menuAddRegistry.Size = new System.Drawing.Size(125, 21);
 			this.menuAddRegistry.Text = "Add New Registry";
 			// 
 			// menuSettings
 			// 
+			this.menuSettings.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.menuSettings.Name = "menuSettings";
 			this.menuSettings.Size = new System.Drawing.Size(66, 21);
 			this.menuSettings.Text = "Settings";

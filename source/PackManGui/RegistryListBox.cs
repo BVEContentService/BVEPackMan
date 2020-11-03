@@ -178,7 +178,7 @@ namespace Zbx1425.PackManGui {
 				.Where(p => !hiddenProps.Contains(p.Name))
 				//.Select(p => new Tuple<string, string>(p.Name, 
                 //   "The End Is Never The End Is Never The End Is Never The End Is Never The End")) Testing
-				 .Select(p => new Tuple<string, string>(p.Name, p.GetValue(obj).ToString()))
+				.Select(p => new Tuple<string, string>(p.Name, p.GetValue(obj) == null ? "(NULL)" :  p.GetValue(obj).ToString()))
 				.ToArray();
 		}
 		
@@ -198,11 +198,6 @@ namespace Zbx1425.PackManGui {
 				e.ItemHeight = Convert.ToInt32((props.Length + (props.Length - 1) * VMinorPadding + 3 * VMajorPadding + BigFontSize) * FontHeight);
 			}
 			base.OnMeasureItem(e);
-		}
-		
-		protected override void OnPaint(PaintEventArgs e) {
-			e.Graphics.DrawRectangle(borderPen, new Rectangle(0, 0, Width, Height));
-			base.OnPaint(e);
 		}
 		
 		protected override void OnDrawItem(DrawItemEventArgs e) {

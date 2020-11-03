@@ -9,13 +9,11 @@ namespace Zbx1425.PWPackMan {
 		
 		bool IsFromAutoDetect { get; set; }
 		
-		void ShowConfigWindow(IWin32Window owner);
+		bool CheckConfig();
+		
+		bool ShowConfigWindow(IWin32Window owner);
 		
 		IRegistry[] AutoDetect();
-
-        string WriteConfig();
-
-        void ReadConfig(string config);
 		
 	}
 }

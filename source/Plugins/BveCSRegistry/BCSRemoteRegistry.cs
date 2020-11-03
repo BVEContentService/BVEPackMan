@@ -11,7 +11,10 @@ using Zbx1425.PWPackMan.Models;
 using Zbx1425.PWPackMan.Utilities;
 using Zbx1425.BveCSRegistry.Models;
 using Zbx1425.BveCSRegistry.Utilities;
+using System.Runtime.Serialization;
 
+
+[assembly: ContractNamespaceAttribute("http://www.zbx1425.tk/bve", ClrNamespace = "Zbx1425.BveCSRegistry")]
 namespace Zbx1425.BveCSRegistry {
 	
 	public class BCSRemoteRegistry : IRemoteRegistry {
@@ -41,8 +44,13 @@ namespace Zbx1425.BveCSRegistry {
 
 		public string PlatformName { get { return "bvecs"; } }
 		
-		public void ShowConfigWindow(IWin32Window owner) {
-			
+		public bool ShowConfigWindow(IWin32Window owner) {
+			throw new NotImplementedException();
+		}
+		
+		public bool CheckConfig() {
+			Uri idontcare;
+			return Uri.TryCreate(ApiBaseUrl, UriKind.Absolute, out idontcare);
 		}
 
 		public IRegistry[] AutoDetect() {
@@ -107,13 +115,36 @@ namespace Zbx1425.BveCSRegistry {
             var wrapper = new System.IO.StringReader(data);
             return (Package)packageSerializer.Deserialize(wrapper);
         }
+		
+		#region Equals and GetHashCode implementation
+		public override bool Equals(object obj) {
+			BCSRemoteRegistry other = obj as BCSRemoteRegistry;
+				if (other == null)
+					return false;
+						return this._apiBaseUrl == other._apiBaseUrl;
+		}
 
-        public string WriteConfig() {
-            return ApiBaseUrl;
-        }
+		public override int GetHashCode() {
+			int hashCode = 0;
+			unchecked {
+				if (_apiBaseUrl != null)
+					hashCode += _apiBaseUrl.GetHashCode();
+			}
+			return hashCode;
+		}
 
-        public void ReadConfig(string config) {
-            ApiBaseUrl = config.Trim();
-        }
+		public static bool operator ==(BCSRemoteRegistry lhs, BCSRemoteRegistry rhs) {
+			if (ReferenceEquals(lhs, rhs))
+				return true;
+			if (ReferenceEquals(lhs, null) || ReferenceEquals(rhs, null))
+				return false;
+			return lhs.Equals(rhs);
+		}
+
+		public static bool operator !=(BCSRemoteRegistry lhs, BCSRemoteRegistry rhs) {
+			return !(lhs == rhs);
+		}
+
+		#endregion
     }
 }

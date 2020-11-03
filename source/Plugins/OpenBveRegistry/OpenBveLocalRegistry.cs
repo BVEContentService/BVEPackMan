@@ -12,9 +12,11 @@ using Microsoft.Win32;
 using System.IO;
 using OpenBveApi.FileSystem;
 using OpenBveApi.Packages;
+using System.Runtime.Serialization;
 
+[assembly: ContractNamespaceAttribute("http://www.zbx1425.tk/bve", ClrNamespace = "Zbx1425.OpenBveRegistry")]
 namespace Zbx1425.OpenBveRegistry {
-
+	
 	public class OpenBveLocalRegistry : ILocalRegistry {
 
 		public string PlatformName { get { return "openbve"; } }
@@ -41,48 +43,7 @@ namespace Zbx1425.OpenBveRegistry {
 		}
 
 		public IRegistry[] AutoDetect() {
-			List<ILocalRegistry> registries = new List<ILocalRegistry>();
-			switch (Environment.OSVersion.Platform) {
-				case PlatformID.Win32NT:
-				case PlatformID.Win32S:
-				case PlatformID.Win32Windows:
-				case PlatformID.WinCE:
-				case PlatformID.Xbox:
-					{
-						const string InnoAppID = "{D617A45D-C2F6-44D1-A85C-CA7FFA91F7FC}_is1";
-						string[] InstallLocations = new RegistryKey[] {
-							Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + InnoAppID),
-							Registry.CurrentUser.OpenSubKey(@"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + InnoAppID),
-							Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" + InnoAppID),
-							Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\" + InnoAppID),
-						}.Select(regKey => regKey != null ? regKey.GetValue("InstallLocation", null) : null).OfType<string>().Distinct().ToArray();
-						foreach (string location in InstallLocations) {
-							string assemblyFile = OpenBveApi.Path.CombineFile(location, "OpenBve.exe");
-							if (!File.Exists(assemblyFile))
-								continue;
-							string programConfigFile = OpenBveApi.Path.CombineFile(OpenBveApi.Path.CombineDirectory(OpenBveApi.Path.CombineDirectory(location, "UserData"), "Settings"), "filesystem.cfg");
-							if (File.Exists(programConfigFile)) {
-								var newRegistery = new OpenBveLocalRegistry(programConfigFile, assemblyFile);
-								newRegistery.IsFromAutoDetect = true;
-								registries.Add(newRegistery);
-							}
-						}
-						break;
-					}
-				case PlatformID.Unix:
-				case PlatformID.MacOSX:
-				case (PlatformID)128: // Earlier Mono
-					{
-						// TODO: Support them
-						break;
-					}
-			}
-			string appDataConfigFile = OpenBveApi.Path.CombineFile(OpenBveApi.Path.CombineDirectory(OpenBveApi.Path.CombineDirectory(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "openBVE"), "Settings"), "filesystem.cfg");
-			if (File.Exists(appDataConfigFile)) {
-				// HACK: There is no way to get the location of OpenBVE, I don't know if doing this is proper
-				registries.Add(new OpenBveLocalRegistry(appDataConfigFile, Assembly.GetEntryAssembly().Location));
-			}
-			return registries.ToArray();
+			return DetectionHelper.DetectRegisteries();
 		}
 
 		public async Task DoInstall(Context ctx, string path, LogHandler logCallback, ProgressHandler progressCallback) {
@@ -239,23 +200,14 @@ namespace Zbx1425.OpenBveRegistry {
 			return matchingPackage.FirstOrDefault(); // Return null if none
 		}
 
-		public void ReadConfig(string config) {
-			var tokens = config.Trim().Split('\n');
-			DatabaseFolder = tokens[0].Trim();
-			RouteInstallationDirectory = tokens[1].Trim();
-			TrainInstallationDirectory = tokens[2].Trim();
-			OtherInstallationDirectory = tokens[3].Trim();
-			LoksimPackageInstallationDirectory = tokens[4].Trim();
-		}
-
-		public string WriteConfig() {
-			return string.Join("\n", DatabaseFolder, 
-				RouteInstallationDirectory, TrainInstallationDirectory, OtherInstallationDirectory, LoksimPackageInstallationDirectory);
-		}
-
-		public void ShowConfigWindow(System.Windows.Forms.IWin32Window owner) {
+		public bool ShowConfigWindow(System.Windows.Forms.IWin32Window owner) {
 			var dialog = new ConfigDialog();
-			dialog.ShowDialog(owner);
+			return dialog.ShowDialog(owner) == System.Windows.Forms.DialogResult.OK;
+		}
+		
+		public bool CheckConfig() {
+			return Directory.Exists(DatabaseFolder) &&
+				File.Exists(Path.Combine(DatabaseFolder, "packages.xml"));
 		}
         
 		// HACK: Acquire private field
@@ -274,5 +226,44 @@ namespace Zbx1425.OpenBveRegistry {
 				Database.LoadDatabase(DatabaseFolder, databaseFile);
 			}
 		}
+		
+		#region Equals and GetHashCode implementation
+		public override bool Equals(object obj) {
+			OpenBveLocalRegistry other = obj as OpenBveLocalRegistry;
+				if (other == null)
+					return false;
+				return this.DatabaseFolder == other.DatabaseFolder && this.RouteInstallationDirectory == other.RouteInstallationDirectory && this.TrainInstallationDirectory == other.TrainInstallationDirectory && this.OtherInstallationDirectory == other.OtherInstallationDirectory && this.LoksimPackageInstallationDirectory == other.LoksimPackageInstallationDirectory;
+		}
+
+		public override int GetHashCode() {
+			int hashCode = 0;
+			unchecked {
+				if (DatabaseFolder != null)
+					hashCode += 1000000009 * DatabaseFolder.GetHashCode();
+				if (RouteInstallationDirectory != null)
+					hashCode += 1000000021 * RouteInstallationDirectory.GetHashCode();
+				if (TrainInstallationDirectory != null)
+					hashCode += 1000000033 * TrainInstallationDirectory.GetHashCode();
+				if (OtherInstallationDirectory != null)
+					hashCode += 1000000087 * OtherInstallationDirectory.GetHashCode();
+				if (LoksimPackageInstallationDirectory != null)
+					hashCode += 1000000093 * LoksimPackageInstallationDirectory.GetHashCode();
+			}
+			return hashCode;
+		}
+
+		public static bool operator ==(OpenBveLocalRegistry lhs, OpenBveLocalRegistry rhs) {
+			if (ReferenceEquals(lhs, rhs))
+				return true;
+			if (ReferenceEquals(lhs, null) || ReferenceEquals(rhs, null))
+				return false;
+			return lhs.Equals(rhs);
+		}
+
+		public static bool operator !=(OpenBveLocalRegistry lhs, OpenBveLocalRegistry rhs) {
+			return !(lhs == rhs);
+		}
+
+		#endregion
 	}
 }

@@ -40,10 +40,12 @@
         </group>
         <group id="exception">
           <trans-unit id="dependency1">
-            <source>Dependency confliction encountered when processing {0}:\n{1}</source>
+            <source>Dependency confliction encountered when processing {0}:
+{1}</source>
           </trans-unit>
           <trans-unit id="dependency2">
-            <source>Dependency confliction encountered when processing {0} required by {1}:\n{2}</source>
+            <source>Dependency confliction encountered when processing {0} required by {1}:
+{2}</source>
           </trans-unit>
           <trans-unit id="uninstalldependency">
             <source>The package to be uninstalled is required by other packages, so it cannot be removed.</source>
@@ -113,6 +115,10 @@
           </trans-unit>
           <trans-unit id="approvereg">
             <source>Are you sure you want to approve the auto-detected registry? Please make sure its parameters are correct. To cancel the approval, simply delete the approved registry.</source>
+          </trans-unit>
+          <trans-unit id="configautoreset">
+            <source>There were an error during the loading of the configuration. To resume normal operation your preferences have been discarded. Sorry for the inconvenience :(
+{0}</source>
           </trans-unit>
         </group>
         <group id="debug">

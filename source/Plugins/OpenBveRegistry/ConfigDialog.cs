@@ -21,5 +21,13 @@ namespace Zbx1425.OpenBveRegistry
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
 		}
+		void BtnOKClick(object sender, EventArgs e) {
+			this.DialogResult = DialogResult.OK;
+			this.Close();
+		}
+		void BtnCancelClick(object sender, EventArgs e) {
+			this.DialogResult = DialogResult.Cancel;
+			this.Close();
+		}
 	}
 }

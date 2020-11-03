@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
 using Zbx1425.PWPackMan;
@@ -21,11 +22,24 @@ namespace Zbx1425.PackManGui {
 		}
 		
 		void MainFormLoad(object sender, EventArgs e) {
-			// localRegistryListBox.DataSource = RegistryManager.LocalRegisteries;
-			foreach (var r in RegistryManager.LocalRegisteries) {
+			// localRegistryListBox.DataSource = RegistryManager.Config.LocalRegisteries;
+			foreach (var r in RegistryManager.Config.LocalRegisteries) {
 				localRegistryListBox.Items.Add(r);
 			}
 			AssertListSync();
+			foreach (var p in PluginManager.LocalRegistryPlugins) {
+				menuAddRegistry.DropDownItems.Add(new ToolStripMenuItem(
+					(Activator.CreateInstance(p) as IRegistry).PlatformName,
+					null, AddRegistryDropDownClick
+				) { Tag = p });
+			}
+		}
+		
+		void AddRegistryDropDownClick(object sender, EventArgs e) {
+			var registry = Activator.CreateInstance((sender as ToolStripMenuItem).Tag as Type) as ILocalRegistry;
+			if (registry.ShowConfigWindow(this)) {
+				insertBeforeAuto(registry);
+			}
 		}
 		
 		private Color[] btnColors = {Color.FromArgb(121, 121, 105), Color.FromArgb(221, 221, 205)};
@@ -69,11 +83,11 @@ namespace Zbx1425.PackManGui {
 				}
 			}
 		}
-		private Pen capBorderPen = new Pen(Color.FromArgb(10, 10, 10), 3);
-		private Pen capSealPen = new Pen(Color.FromArgb(135, 137, 126), 4);
+		private Pen capBorderPen = new Pen(Color.FromArgb(10, 10, 10), 4);
+		private Pen capSealPen = new Pen(Color.FromArgb(80, 205, 206), 4);
 		void ContextActionPanelPaint(object sender, PaintEventArgs e) {
-			e.Graphics.DrawRectangle(capBorderPen, -2, -2, contextActionPanel.Width, contextActionPanel.Height);
-			e.Graphics.DrawLine(capSealPen, 266, contextActionPanel.Height - 1, 284, contextActionPanel.Height - 2);
+			e.Graphics.DrawRectangle(capBorderPen, -1, -2, contextActionPanel.Width, contextActionPanel.Height);
+			e.Graphics.DrawLine(capSealPen, 266, contextActionPanel.Height - 2, 284, contextActionPanel.Height - 2);
 		}
 		void MainFormResizeBegin(object sender, EventArgs e) {
 			// Dirty workaround to reduce flickering.
@@ -84,11 +98,11 @@ namespace Zbx1425.PackManGui {
 		}
 		
 		void AssertListSync() {
-			if (localRegistryListBox.Items.Count != RegistryManager.LocalRegisteries.Count) {
+			if (localRegistryListBox.Items.Count != RegistryManager.Config.LocalRegisteries.Count) {
 				throw new Exception(I._("bpmgui_debug_regmanoutofsync"));
 			}
 			for (int i = 0; i < localRegistryListBox.Items.Count; i++) {
-				if (localRegistryListBox.Items[i] != RegistryManager.LocalRegisteries[i]) {
+				if (localRegistryListBox.Items[i] != RegistryManager.Config.LocalRegisteries[i]) {
 					throw new Exception(I._("bpmgui_debug_regmanoutofsync"));
 				}
 			}
@@ -106,7 +120,7 @@ namespace Zbx1425.PackManGui {
 			
 			// I heard that using BindingList is the correct way to do such operations
 			// But I can never get it to work...
-			RegistryManager.LocalRegisteries.Reverse(sid - 1, 2);
+			RegistryManager.Config.LocalRegisteries.Reverse(sid - 1, 2);
 			var temp = localRegistryListBox.Items[sid - 1];
 			localRegistryListBox.Items[sid - 1] = localRegistryListBox.Items[sid];
 			localRegistryListBox.Items[sid] = temp;
@@ -126,7 +140,7 @@ namespace Zbx1425.PackManGui {
 			
 			// I heard that using BindingList is the correct way to do such operations
 			// But I can never get it to work...
-			RegistryManager.LocalRegisteries.Reverse(sid, 2);
+			RegistryManager.Config.LocalRegisteries.Reverse(sid, 2);
 			var temp = localRegistryListBox.Items[sid + 1];
 			localRegistryListBox.Items[sid + 1] = localRegistryListBox.Items[sid];
 			localRegistryListBox.Items[sid] = temp;
@@ -143,8 +157,8 @@ namespace Zbx1425.PackManGui {
 					    MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2
 				    ) == DialogResult.Yes) {
 					localRegistryListBox.Items.Remove(item);
-					RegistryManager.LocalRegisteries.Remove(item);
-					RegistryManager.Config.LocalRegisteryInhibitions.Add(new PluginConfigEntry(item));
+					RegistryManager.Config.LocalRegisteries.Remove(item);
+					RegistryManager.Config.LocalRegisteryInhibitions.Add(item);
 					localRegistryListBox.SelectedIndex = -1;
 					localRegistryListBox.ForceMeasure();
 					AssertListSync();
@@ -154,16 +168,30 @@ namespace Zbx1425.PackManGui {
 					    MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2
 				    ) == DialogResult.Yes) {
 					localRegistryListBox.Items.Remove(item);
-					RegistryManager.LocalRegisteries.Remove(item);
+					RegistryManager.Config.LocalRegisteries.Remove(item);
 					localRegistryListBox.SelectedIndex = -1;
 					RegistryManager.AutoDetect();
-					foreach (var r in RegistryManager.LocalRegisteries) {
+					foreach (var r in RegistryManager.Config.LocalRegisteries) {
 						if (!localRegistryListBox.Items.Contains(r))
 							localRegistryListBox.Items.Add(r);
 					}
 					AssertListSync();
 				}
 			}
+		}
+		
+		void insertBeforeAuto(ILocalRegistry item) {
+			if (RegistryManager.Config.LocalRegisteries.Contains(item)) return;
+			
+			var firstAutoIndex = 0;
+			while (firstAutoIndex <= localRegistryListBox.Items.Count - 1 &&
+			       !((IRegistry)localRegistryListBox.Items[firstAutoIndex]).IsFromAutoDetect) {
+				firstAutoIndex++;
+			}
+			item.IsFromAutoDetect = false;
+			localRegistryListBox.Items.Insert(firstAutoIndex, item);
+			RegistryManager.Config.LocalRegisteries.Insert(firstAutoIndex, item);
+			localRegistryListBox.SelectedIndex = firstAutoIndex;
 		}
 		
 		void BtnConfigClick(object sender, EventArgs e) {
@@ -175,16 +203,8 @@ namespace Zbx1425.PackManGui {
 					    MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2
 				    ) == DialogResult.Yes) {
 					localRegistryListBox.Items.Remove(item);
-					RegistryManager.LocalRegisteries.Remove(item);
-					var firstAutoIndex = 0;
-					while (firstAutoIndex <= localRegistryListBox.Items.Count - 2 &&
-					       !((IRegistry)localRegistryListBox.Items[firstAutoIndex]).IsFromAutoDetect) {
-						firstAutoIndex++;
-					}
-					item.IsFromAutoDetect = false;
-					localRegistryListBox.Items.Insert(firstAutoIndex + 1, item);
-					RegistryManager.LocalRegisteries.Insert(firstAutoIndex + 1, item);
-					localRegistryListBox.SelectedIndex = firstAutoIndex + 1;
+					RegistryManager.Config.LocalRegisteries.Remove(item);
+					insertBeforeAuto(item);
 					localRegistryListBox.ForceMeasure();
 					AssertListSync();
 				}

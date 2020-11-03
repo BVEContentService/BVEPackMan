@@ -1,25 +1,30 @@
 ﻿using System;
 using System.IO;
-using System.Xml.Serialization;
+using System.Xml;
+using System.Runtime.Serialization;
+using Zbx1425.PWPackMan;
 
 namespace Zbx1425.PackManGui.Plugin {
   
 	public class Preference {
   
-		public PluginConfigEntry RemoteRegistry;
+		public IRemoteRegistry RemoteRegistry;
 		
-		public PluginConfigEntry Translation;
+		public ITranslation Translation;
 		
 		public static Preference FromFile(string file) {
-			var configSerializer = new XmlSerializer(typeof(Preference));
+			var configSerializer = new DataContractSerializer(typeof(Preference), PluginManager.AllPlugins);
 			var wrapper = new StringReader(File.ReadAllText(file));
-			return (Preference)configSerializer.Deserialize(wrapper);
+			var xmlReader = new XmlTextReader(wrapper);
+			return (Preference)configSerializer.ReadObject(xmlReader);
 		}
 		
 		public void Save(string file) {
-			var configSerializer = new XmlSerializer(typeof(Preference));
-			var writer = new StreamWriter(file);
-			configSerializer.Serialize(writer, this);
+			var configSerializer = new DataContractSerializer(typeof(Preference), PluginManager.AllPlugins);
+			using (var writer = new StreamWriter(file)) 
+			using (var xmlWriter = new XmlTextWriter(writer)){
+				configSerializer.WriteObject(xmlWriter, this);
+			}
 		}
 	}
 }

@@ -5,8 +5,12 @@ using System.Linq;
 using System.Windows.Forms;
 using Zbx1425.PWPackMan;
 using OpenBveApi.Interface;
+using System.IO;
 using System.Reflection;
+using System.Runtime.Serialization;
 
+
+[assembly: ContractNamespaceAttribute("http://www.zbx1425.tk/bve", ClrNamespace = "Zbx1425.XliffTranslation")]
 namespace Zbx1425.XliffTranslation {
   
 	public class XliffTranslation : ITranslation {
@@ -37,17 +41,26 @@ namespace Zbx1425.XliffTranslation {
 
 		public string Translate(string id) {
 			SwitchToLanguage();
-			return Translations.GetInterfaceString(id);
+			return AdaptNewLine(Translations.GetInterfaceString(id));
 		}
 
 		public string Translate(string id, params object[] args) {
 			SwitchToLanguage();
-			return string.Format(Translations.GetInterfaceString(id), args);
+			return string.Format(AdaptNewLine(Translations.GetInterfaceString(id)), args);
+		}
+		
+		private string AdaptNewLine(string src) {
+			return src.Replace("\r\n", "\n").Replace("\n", Environment.NewLine);
 		}
 
-		public void ShowConfigWindow(IWin32Window owner) {
+		public bool ShowConfigWindow(IWin32Window owner) {
 			MessageBox.Show(owner, "There's nothing to be configured.", "XLiff",
 			                MessageBoxButtons.OK, MessageBoxIcon.Information);
+			return false;
+		}
+		
+		public bool CheckConfig() {
+			return File.Exists("Data/Languages/" + LanguageCode + ".xlf");
 		}
 
 		public IRegistry[] AutoDetect() {
@@ -69,14 +82,6 @@ namespace Zbx1425.XliffTranslation {
 			return languages.ToArray();
 		}
 
-		public string WriteConfig() {
-			return LanguageCode;
-		}
-
-		public void ReadConfig(string config) {
-			LanguageCode = config.Trim();
-		}
-
 		public string PlatformName { get { return "xliff"; } }
 
 		public bool IsFromAutoDetect { get; set; }
@@ -88,6 +93,37 @@ namespace Zbx1425.XliffTranslation {
 				Translations.CurrentLanguageCode = LanguageCode;
 			}
 		}
+		
+		#region Equals and GetHashCode implementation
+		public override bool Equals(object obj) {
+			XliffTranslation other = obj as XliffTranslation;
+				if (other == null)
+					return false;
+				return this.LanguageCode == other.LanguageCode;
+		}
+
+		public override int GetHashCode() {
+			int hashCode = 0;
+			unchecked {
+				if (LanguageCode != null)
+					hashCode += LanguageCode.GetHashCode();
+			}
+			return hashCode;
+		}
+
+		public static bool operator ==(XliffTranslation lhs, XliffTranslation rhs) {
+			if (ReferenceEquals(lhs, rhs))
+				return true;
+			if (ReferenceEquals(lhs, null) || ReferenceEquals(rhs, null))
+				return false;
+			return lhs.Equals(rhs);
+		}
+
+		public static bool operator !=(XliffTranslation lhs, XliffTranslation rhs) {
+			return !(lhs == rhs);
+		}
+
+		#endregion
 		
 	}
 }

@@ -17,6 +17,12 @@ namespace Zbx1425.PackManGui.Plugin {
 		
 		public static readonly List<Type> TranslationPlugins = new List<Type>();
 		
+		public static Type[] AllPlugins {
+			get {
+				return RemoteRegistryPlugins.Concat(LocalRegistryPlugins).Concat(TranslationPlugins).ToArray();
+			}
+		}
+		
 		static PluginManager() {
 			var pluginFiles = pluginPath
 				.Where(Directory.Exists)
