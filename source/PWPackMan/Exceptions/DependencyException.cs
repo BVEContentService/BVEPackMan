@@ -20,7 +20,7 @@ namespace Zbx1425.PWPackMan.Exceptions {
 		private static string GenerateMessage(Context ctx, string installing, string dependant, Exception innerException) {
 			return string.IsNullOrEmpty(dependant) ? 
 				ctx.Translation.Translate("bpmcore_exception_dependency1", installing, innerException.Message) : 
-				ctx.Translation.Translate("bpmcore_exception_dependency2", dependant, installing, innerException.Message);
+				ctx.Translation.Translate("bpmcore_exception_dependency2", installing, dependant, innerException.Message);
 		}
 	}
 }

@@ -6,7 +6,8 @@ namespace Zbx1425.PWPackMan.Utilities {
 		Verbose,
 		Debug,
 		Info,
-		Warning
+		Warning,
+		Error
 	}
 	
 	public delegate void LogHandler(LogLevel level, string message);

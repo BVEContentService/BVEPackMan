@@ -70,15 +70,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigDialog.cs" />
-    <Compile Include="ConfigDialog.Designer.cs">
+    <Compile Include="Cast\FileSystemPathFix.cs" />
+    <Compile Include="Cast\PackageStructHelper.cs" />
+    <Compile Include="OpenBveLocalRegistry.Discovery.cs" />
+    <Compile Include="Exceptions\BrokenDependencyException.cs" />
+    <Compile Include="Exceptions\MalformedPackageException.cs" />
+    <Compile Include="Exceptions\MissingDependencyException.cs" />
+    <Compile Include="OpenBveLocalRegistry.Manipulation.cs" />
+    <Compile Include="OpenBveLocalRegistry.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Winform\ConfigDialog.cs" />
+    <Compile Include="Winform\ConfigDialog.Designer.cs">
       <DependentUpon>ConfigDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="DetectionHelper.cs" />
-    <Compile Include="OpenBveLocalRegistry.cs" />
-    <Compile Include="PackageStructHelper.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FileSystemPathFix.cs" />
+    <Compile Include="Winform\FolderBrowserDialog.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\PWPackMan\PWPackMan.csproj">
@@ -88,9 +93,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ConfigDialog.resx">
+    <EmbeddedResource Include="Winform\ConfigDialog.resx">
       <DependentUpon>ConfigDialog.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Winform" />
+    <Folder Include="Exceptions" />
+    <Folder Include="Cast" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

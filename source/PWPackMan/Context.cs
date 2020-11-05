@@ -26,11 +26,11 @@ namespace Zbx1425.PWPackMan {
 		
 		private readonly Dictionary<Identifier, RemotePackageInfo> remotePackQueryCache = new Dictionary<Identifier, RemotePackageInfo>();
 		
-		public async Task DoInstall(Identifier id, VersionRange range, LogHandler logCallback, ProgressHandler progressCallback) {
+		public async Task<IEnumerable<Tuple<Identifier, Version, string>>> DoFetch(Identifier id, VersionRange range, LogHandler logCallback, ProgressHandler progressCallback) {
 			// TODO: Throw exception on circular reference
 			
 			var resolveQueue = new Queue<Tuple<Identifier, VersionRange, string>>();
-			var revInstallSequence = new List<string>();
+			var revInstallSequence = new List<Tuple<Identifier, Version, string>>();
 			resolveQueue.Enqueue(new Tuple<Identifier, VersionRange, string>(id, range, ""));
 			while (resolveQueue.Count > 0) {
 				var elem = resolveQueue.Dequeue();
@@ -96,17 +96,20 @@ namespace Zbx1425.PWPackMan {
 					resolveQueue.Enqueue(new Tuple<Identifier, VersionRange, string>(dependency.Key, dependency.Value, packInfo.PlainName));
 				}
 				
-				if (revInstallSequence.Contains(tempFile))
-					revInstallSequence.Remove(tempFile);
-				revInstallSequence.Add(tempFile);
+				if (revInstallSequence.Any(t => t.Item3 == tempFile))
+					revInstallSequence.Remove(revInstallSequence.Single(t => t.Item3 == tempFile));
+				revInstallSequence.Add(new Tuple<Identifier, Version, string>(remotePack.ID, installable.Item1, tempFile));
 			}
-
 			revInstallSequence.Reverse();
-			foreach (var tempFile in revInstallSequence) {
+			return revInstallSequence;
+		}
+		
+		public async Task DoInstall(IEnumerable<Tuple<Identifier, Version, string>> sequence, LogHandler logCallback, ProgressHandler progressCallback) {
+			foreach (var tempFile in sequence) {
 				// Let the LocalRegistry decide if removal is needed
 				logCallback(LogLevel.Info, Translation.Translate("bpmcore_context_installing", tempFile));
-				await LocalRegistry.DoInstall(this, tempFile, logCallback, progressCallback);
-				System.IO.File.Delete(tempFile);
+				await LocalRegistry.DoInstall(this, tempFile.Item3, logCallback, progressCallback);
+				System.IO.File.Delete(tempFile.Item3);
 			}
 		}
 		

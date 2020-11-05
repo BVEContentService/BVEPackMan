@@ -256,7 +256,8 @@ namespace Zbx1425.PackManGui {
 				Alignment = StringAlignment.Far,
 				Trimming = StringTrimming.EllipsisCharacter 
 			};
-			 e.Graphics.DrawString(item.PlatformName, bigFont, textBrush,
+			var friendlyPlatformName = I._("bpmplugin_" + item.PlatformName + "_friendlyname");
+			 e.Graphics.DrawString(friendlyPlatformName, bigFont, textBrush,
 			//   e.Graphics.DrawString("Test", bigFont, textBrush, // Testing
 				new Rectangle(
 					Convert.ToInt32(e.Bounds.X + HPadding * FontHeight),
@@ -265,7 +266,7 @@ namespace Zbx1425.PackManGui {
 					Convert.ToInt32(FontHeight * BigFontSize)
 				), stringFormatA
 			);
-			var titleOffsetA = e.Graphics.MeasureString(item.PlatformName, bigFont).Width;
+			var titleOffsetA = e.Graphics.MeasureString(friendlyPlatformName, bigFont).Width;
 			// var titleOffsetA = e.Graphics.MeasureString("Test", bigFont).Width;
 			e.Graphics.DrawString(item.GetHashCode().ToString("X8"), bigFont, secondaryBrush,
 				new Rectangle(

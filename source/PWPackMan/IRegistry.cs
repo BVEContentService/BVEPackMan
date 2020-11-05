@@ -11,7 +11,7 @@ namespace Zbx1425.PWPackMan {
 		
 		bool CheckConfig();
 		
-		bool ShowConfigWindow(IWin32Window owner);
+		bool ShowConfigWindow(IWin32Window owner, ITranslation i18n);
 		
 		IRegistry[] AutoDetect();
 		

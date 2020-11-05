@@ -21,7 +21,6 @@ namespace Zbx1425.BveCSRegistry.Models {
 		public Developer Author { get; set; }
 
 		public string Homepage { get; set; }
-		public bool ForcePopup { get; set; }
 		public string Thumbnail { get; set; }
 		public string ThumbnailLQ { get; set; }
 

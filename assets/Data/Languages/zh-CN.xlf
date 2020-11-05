@@ -1,16 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <xliff version="1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2.xsd" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file datatype="plaintext" original="en-US.xlf" source-language="en-US">
+	<file datatype="plaintext" original="en-US.xlf" source-language="en-US" target-language="zh-CN">
 		<body>
 			<group id="language">
 				<trans-unit id="name">
 					<source>English (United States)</source>
+					<target state="translated">中文 (大陆简体)</target>
 				</trans-unit>
 				<trans-unit id="contributors">
 					<source>Unknown</source>
+					<target state="translated">ZBX</target>
 				</trans-unit>
 				<trans-unit id="last_updated">
 					<source>2020-11-04</source>
+					<target state="translated">2020-11-04</target>
 				</trans-unit>
 			</group>
       
@@ -18,51 +21,68 @@
         <group id="context">
           <trans-unit id="downloadmetadata">
             <source>Downloading metadata of {0}</source>
+            <target state="translated">正在下载 {0} 的元数据</target>
           </trans-unit>
           <trans-unit id="alreadyinstalled">
             <source>{0} {1} is already installed</source>
+            <target state="translated">{0} {1} 此前已经安装</target>
           </trans-unit>
           <trans-unit id="willinstall">
             <source>Will install {0} {1}</source>
+            <target state="translated">将会安装 {0} {1}</target>
           </trans-unit>
           <trans-unit id="cannotlatest">
             <source>Cannot install the latest version {0} of {1} due to dependency constraints</source>
+            <target state="translated">由于依赖限制，无法安装 {1} 的最新版 {0}</target>
           </trans-unit>
           <trans-unit id="requires">
             <source>{0} requires [{1}]</source>
+            <target state="translated">{0} 依赖于 [{1}]</target>
           </trans-unit>
           <trans-unit id="downloading">
             <source>Downloading {0} ...</source>
+            <target state="translated">正在下载 {0} ...</target>
           </trans-unit>
           <trans-unit id="installing">
             <source>Installing {0} ...</source>
+            <target state="translated">正在安装 {0} ...</target>
           </trans-unit>
         </group>
         <group id="exception">
           <trans-unit id="dependency1">
             <source>Dependency confliction encountered when processing {0}:
 {1}</source>
+            <target state="translated">在处理 {0} 时出现了依赖关系冲突：
+{1}</target>
           </trans-unit>
           <trans-unit id="dependency2">
             <source>Dependency confliction encountered when processing {0} required by {1}:
 {2}</source>
+            <target state="translated">在按照 {1} 的要求处理 {0} 时出现了依赖关系冲突：
+{2}</target>
           </trans-unit>
           <trans-unit id="uninstalldependency">
             <source>The package to be uninstalled is required by other packages, so it cannot be removed.</source>
+            <target state="translated">正要卸载的包是被其他的包所依赖的，因此不能卸载。</target>
           </trans-unit>
           <trans-unit id="blame">
             <source>Some of the packages related to the problem:</source>
+            <target state="translated">与此问题有关的部分包：</target>
           </trans-unit>
           <trans-unit id="notfound">
             <source>Cannot find the requested package: {0}</source>
+            <target state="translated">无法获取到所需的包：{0}</target>
           </trans-unit>
           <trans-unit id="badrange1">
             <source>Version requirements of the dependency constraints conflicted with each other.</source>
+            <target state="translated">依赖限制的版本需求互相矛盾。</target>
           </trans-unit>
           <trans-unit id="badrange2">
             <source>A version to satisfy the requirements of the dependency constraints is not available.</source>
+            <target state="translated">下载不到符合依赖限制的版本需求的版本。</target>
           <trans-unit id="constraint">
             <source>Constraint {0,12}: {1}{2}</source>
+            <target state="translated">限制 {0, 12}: {1}{2}</target>
           </trans-unit>
           </trans-unit>
         </group>
@@ -72,78 +92,103 @@
         <group id="mainform">
           <trans-unit id="menuaddregistry">
             <source>Add PIL (Package Installation Location)</source>
+            <target state="translated">添加安装位置</target>
           </trans-unit>
           <trans-unit id="menusettings">
             <source>Settings</source>
+            <target state="translated">设定</target>
           </trans-unit>
           <trans-unit id="btninstallpack">
             <source>Install Pack</source>
+            <target state="translated">安装扩展包</target>
           </trans-unit>
           <trans-unit id="btnuninstallpack">
             <source>Uninstall Pack</source>
+            <target state="translated">管理扩展包</target>
           </trans-unit>
           <trans-unit id="btnconfig">
             <source>Config</source>
+            <target state="translated">配置</target>
           </trans-unit>
           <trans-unit id="btnconfiga">
             <source>Approve</source>
+            <target state="translated">同意</target>
           </trans-unit>
           <trans-unit id="btnremove">
             <source>Remove</source>
+            <target state="translated">移除</target>
           </trans-unit>
           <trans-unit id="btnremovea">
             <source>Disable</source>
+            <target state="translated">停用</target>
           </trans-unit>
           <trans-unit id="ok">
             <source>OK</source>
+            <target state="translated">确定</target>
           </trans-unit>
           <trans-unit id="cancel">
             <source>Cancel</source>
+            <target state="translated">取消</target>
           </trans-unit>
           <trans-unit id="installconfirm">
             <source>These Packages will be installed:
 {0}
 Confirm?</source>
+            <target state="translated">将安装以下扩展包：
+{0}
+确定吗？</target>
           </trans-unit>
         </group>
         <group id="reglistbox">
           <trans-unit id="warnautodet">
             <source>Auto-detected, Please Check Path</source>
+            <target state="translated">自动探测结果，请检查目录信息是否正确</target>
           </trans-unit>
           <trans-unit id="headerautodet">
             <source>▼ Auto-detected registeries awaiting approval</source>
+            <target state="translated">▼ 自动探测到的安装位置，等待同意</target>
           </trans-unit>
         </group>
         <group id="msg">
           <trans-unit id="err">
             <source>Error</source>
+            <target state="translated">错误</target>
           </trans-unit>
           <trans-unit id="warn">
             <source>Warning</source>
+            <target state="translated">警告</target>
           </trans-unit>
           <trans-unit id="info">
             <source>Info</source>
+            <target state="translated">信息</target>
           </trans-unit>
           <trans-unit id="complete">
             <source>Complete</source>
+            <target state="translated">完成</target>
           </trans-unit>
           <trans-unit id="disableautodet">
             <source>Are you sure you want to disable the auto-detection of this PIL? Don't worry, you can add it back later in the settings.</source>
+            <target state="translated">确定要停止自动探测这一安装位置么？别担心，稍后还可以在设置里重新启用。</target>
           </trans-unit>
           <trans-unit id="removereg">
             <source>Are you sure you want to remove this PIL?</source>
+            <target state="translated">确定要移除这一安装位置么？</target>
           </trans-unit>
           <trans-unit id="approvereg">
             <source>Are you sure you want to approve the auto-detected PIL? Please make sure its parameters are correct. To cancel the approval, simply delete the approved item.</source>
+            <target state="translated">确定要同意采取这一安装位置么？请检查其目录信息是否正确。如要取消此操作，将其删除即可。</target>
           </trans-unit>
           <trans-unit id="configautoreset">
             <source>There were an error during the loading of the configuration. To resume normal operation your preferences have been discarded. Sorry for the inconvenience :(
 {0}</source>
+            <target state="translated">在加载配置文件时出现问题。为恢复程序运行，重置了您的所有设置，十分抱歉！
+{0}</target>
           </trans-unit>
         </group>
         <group id="debug">
           <trans-unit id="regmanoutofsync">
             <source>RegistryManager out of sync with UI. This is a bug, inform developer.</source>
+            <target state="translated">RegistryManager与用户界面失去同步。这是程序错误，请告知开发组。</target>
           </trans-unit>
         </group>
       </group>
@@ -152,62 +197,65 @@ Confirm?</source>
         <group id="openbve">
           <trans-unit id="friendlyname">
             <source>OpenBVE</source>
+            <target state="translated">OpenBVE</target>
           </trans-unit>
-          <group id="exception">
-            <trans-unit id="missingdependency">
-              <source>According to OpenBVE Package Database, some dependencies are missing:
-{0}</source>
-            </trans-unit>
-            <trans-unit id="brokendependency">
-              <source>According to OpenBVE Package Database, uninstalling this package will break these dependencies:
-{0}</source>
-            </trans-unit>
-            <trans-unit id="badpackage">
-              <source>The package file is malformed.</source>
-            </trans-unit>
-          </group>
           <group id="configform">
             <trans-unit id="title">
               <source>Set up OpenBve Package Installation Location ({0})</source>
+              <target state="translated">配置OpenBVE扩展包安装位置 ({0})</target>
             </trans-unit>
             <trans-unit id="database">
               <source>Package Database</source>
+              <target state="translated">扩展包数据库</target>
             </trans-unit>
             <trans-unit id="databasehint">
               <source>Normally, the default value will work if you installed OpenBve in a normal way.</source>
+              <target state="translated">如果您没有进行深度魔改或用奇特方式安装OpenBVE的话，这一栏留着不动应该就可以。</target>
             </trans-unit>
             <trans-unit id="location">
               <source>Location</source>
+              <target state="translated">位置</target>
             </trans-unit>
             <trans-unit id="installdir">
               <source>Installation Directories</source>
+              <target state="translated">安装位置</target>
             </trans-unit>
             <trans-unit id="installdirhint1">
-              <source>Specify the "Railway" and "Train" folders at your preference, or leave as-is. NOTE: You'd better not use folders inside Program Files!</source>
+              <source>Specify the "Railway" and "Train" folders at your preference.
+NOTE: You'd better not use folders inside Program Files!</source>
+              <target state="translated">按照您的喜好选取 "Railway(线路)" 与 "Train(列车)" 安装位置。或留着不动也可。注意：尽量不要选 Program Files 里面的文件夹！</target>
             </trans-unit>
             <trans-unit id="railway">
               <source>Railway</source>
+              <target state="translated">Railway</target>
             </trans-unit>
             <trans-unit id="train">
               <source>Train</source>
+              <target state="translated">Train</target>
             </trans-unit>
             <trans-unit id="installdirhint2">
               <source>You can leave these two below at their default value if you are not sure. Seldom does a package refer to these locations.</source>
+              <target state="translated">如您不清楚以下两个该如何设，留着不动即可。这两个位置几乎没有扩展包使用。</target>
             </trans-unit>
             <trans-unit id="other">
               <source>Other</source>
+              <target state="translated">Other</target>
             </trans-unit>
             <trans-unit id="loksim">
               <source>Loksim</source>
+              <target state="translated">Loksim</target>
             </trans-unit>
             <trans-unit id="browse">
               <source>Select</source>
+              <target state="translated">选取</target>
             </trans-unit>
             <trans-unit id="ok">
               <source>Accept</source>
+              <target state="translated">确定</target>
             </trans-unit>
             <trans-unit id="cancel">
               <source>Cancel</source>
+              <target state="translated">取消</target>
             </trans-unit>
           </group>
           <group id="msg">

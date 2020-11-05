@@ -8,6 +8,8 @@ namespace Zbx1425.PWPackMan.Models {
 		
 		public virtual SerializableSortedDictionary<Version, string> AvailableVersions { get; set; }
 		
+		public virtual bool ForcePopup { get; set; }
+		
 		public RemotePackageInfo() {
 			AvailableVersions = new SerializableSortedDictionary<Version, string>();
 		}

@@ -161,6 +161,7 @@ namespace Zbx1425.PackManGui
 			this.btnUninstallPack.TabIndex = 2;
 			this.btnUninstallPack.Text = "Uninstall Pack";
 			this.btnUninstallPack.UseVisualStyleBackColor = false;
+			this.btnUninstallPack.Click += new System.EventHandler(this.BtnUninstallPackClick);
 			// 
 			// btnInstallPack
 			// 
@@ -173,6 +174,7 @@ namespace Zbx1425.PackManGui
 			this.btnInstallPack.TabIndex = 1;
 			this.btnInstallPack.Text = "Install Pack";
 			this.btnInstallPack.UseVisualStyleBackColor = false;
+			this.btnInstallPack.Click += new System.EventHandler(this.BtnInstallPackClick);
 			// 
 			// mainMenuStrip
 			// 
@@ -195,6 +197,7 @@ namespace Zbx1425.PackManGui
 			// 
 			// menuSettings
 			// 
+			this.menuSettings.Enabled = false;
 			this.menuSettings.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.menuSettings.Name = "menuSettings";
 			this.menuSettings.Size = new System.Drawing.Size(66, 21);
@@ -212,7 +215,7 @@ namespace Zbx1425.PackManGui
 			this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(239)))), ((int)(((byte)(241)))));
 			this.MainMenuStrip = this.mainMenuStrip;
 			this.Name = "MainForm";
-			this.Text = "GUI";
+			this.Text = "GUI WIP";
 			this.Load += new System.EventHandler(this.MainFormLoad);
 			this.ResizeBegin += new System.EventHandler(this.MainFormResizeBegin);
 			this.ResizeEnd += new System.EventHandler(this.MainFormResizeEnd);

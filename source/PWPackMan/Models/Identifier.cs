@@ -54,6 +54,37 @@ namespace Zbx1425.PWPackMan.Models {
 				return "";
 			}
 		}
+		
+		#region Equals and GetHashCode implementation
+		public override bool Equals(object obj) {
+			return (obj is Identifier) && Equals((Identifier)obj);
+		}
+
+		public bool Equals(Identifier other) {
+			return this.HasGuid == other.HasGuid && this.Guid == other.Guid && this.HasName == other.HasName && this.Name == other.Name;
+		}
+
+		public override int GetHashCode() {
+			int hashCode = 0;
+			unchecked {
+				hashCode += 1000000007 * HasGuid.GetHashCode();
+				hashCode += 1000000009 * Guid.GetHashCode();
+				hashCode += 1000000021 * HasName.GetHashCode();
+				if (Name != null)
+					hashCode += 1000000033 * Name.GetHashCode();
+			}
+			return hashCode;
+		}
+
+		public static bool operator ==(Identifier lhs, Identifier rhs) {
+			return lhs.Equals(rhs);
+		}
+
+		public static bool operator !=(Identifier lhs, Identifier rhs) {
+			return !(lhs == rhs);
+		}
+
+		#endregion
 
 	}
 }

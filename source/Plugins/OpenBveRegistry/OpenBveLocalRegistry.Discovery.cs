@@ -8,9 +8,9 @@ using System.IO;
 
 namespace Zbx1425.OpenBveRegistry {
   
-	internal static class DetectionHelper {
+	public partial class OpenBveLocalRegistry {
   
-		public static OpenBveLocalRegistry[] DetectRegisteries() {
+		public IRegistry[] AutoDetect() {
 			var registries = new List<OpenBveLocalRegistry>();
 			switch (Environment.OSVersion.Platform) {
 				case PlatformID.Win32NT:
@@ -57,8 +57,27 @@ namespace Zbx1425.OpenBveRegistry {
 			return registries.ToArray();
 		}
 		
-		public static bool IsConfigValid() {
-			return true;
+		internal static bool IsPathValid(string path) {
+			try {
+				var fi = new FileInfo(path);
+				return fi != null && Path.IsPathRooted(path);
+			} catch (ArgumentException) {
+			} catch (PathTooLongException) {
+			} catch (NotSupportedException) {
+				return false;
+			}
+			return false;
+		}
+		
+		
+		
+		public bool CheckConfig() {
+			return Directory.Exists(DatabaseFolder) &&
+			File.Exists(Path.Combine(DatabaseFolder, "packages.xml")) &&
+			IsPathValid(RouteInstallationDirectory) &&
+			IsPathValid(TrainInstallationDirectory) &&
+			IsPathValid(OtherInstallationDirectory) &&
+			IsPathValid(LoksimPackageInstallationDirectory);
 		}
 	}
 }

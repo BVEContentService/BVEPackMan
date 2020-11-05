@@ -44,7 +44,7 @@ namespace Zbx1425.BveCSRegistry {
 
 		public string PlatformName { get { return "bvecs"; } }
 		
-		public bool ShowConfigWindow(IWin32Window owner) {
+		public bool ShowConfigWindow(IWin32Window owner, ITranslation i18n) {
 			throw new NotImplementedException();
 		}
 		

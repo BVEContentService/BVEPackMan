@@ -32,10 +32,19 @@ namespace Zbx1425.XliffTranslation {
 			if (languageCount < 1) {
 				Translations.LoadLanguageFiles("Data/Languages");
 			}
+			/* DEBUG
+			using (FileStream stream = new FileStream("Data/Languages/zh-CN.xlf", FileMode.Open, FileAccess.Read))
+			using (StreamReader reader = new StreamReader(stream, System.Text.Encoding.UTF8)) {
+				var langType = Type.GetType("OpenBveApi.Interface.Translations+Language, OpenBveApi");
+				var ci = langType.GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance)[0];
+				var lang = ci.Invoke(new object[] {reader, "zh-CN"});
+			}
+			*/
 			IsFromAutoDetect = true; // Manual config of language is not allowed
 		}
 		
-		public XliffTranslation(string langCode) : this() {
+		public XliffTranslation(string langCode)
+			: this() {
 			LanguageCode = langCode;
 		}
 
@@ -53,9 +62,9 @@ namespace Zbx1425.XliffTranslation {
 			return src.Replace("\r\n", "\n").Replace("\n", Environment.NewLine);
 		}
 
-		public bool ShowConfigWindow(IWin32Window owner) {
+		public bool ShowConfigWindow(IWin32Window owner, ITranslation i18n) {
 			MessageBox.Show(owner, "There's nothing to be configured.", "XLiff",
-			                MessageBoxButtons.OK, MessageBoxIcon.Information);
+				MessageBoxButtons.OK, MessageBoxIcon.Information);
 			return false;
 		}
 		
@@ -97,9 +106,9 @@ namespace Zbx1425.XliffTranslation {
 		#region Equals and GetHashCode implementation
 		public override bool Equals(object obj) {
 			XliffTranslation other = obj as XliffTranslation;
-				if (other == null)
-					return false;
-				return this.LanguageCode == other.LanguageCode;
+			if (other == null)
+				return false;
+			return this.LanguageCode == other.LanguageCode;
 		}
 
 		public override int GetHashCode() {
