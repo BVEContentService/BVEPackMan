@@ -61,9 +61,12 @@
           </trans-unit>
           <trans-unit id="badrange2">
             <source>A version to satisfy the requirements of the dependency constraints is not available.</source>
-          <trans-unit id="constraint">
-            <source>Constraint {0,12}: {1}{2}</source>
           </trans-unit>
+          <trans-unit id="constraint">
+            <source>Constraint {0}: {1}{2}</source>
+          </trans-unit>
+          <trans-unit id="userconstraint">
+            <source>Your requirement</source>
           </trans-unit>
         </group>
       </group>

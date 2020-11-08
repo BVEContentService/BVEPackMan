@@ -80,10 +80,14 @@
           <trans-unit id="badrange2">
             <source>A version to satisfy the requirements of the dependency constraints is not available.</source>
             <target state="translated">下载不到符合依赖限制的版本需求的版本。</target>
-          <trans-unit id="constraint">
-            <source>Constraint {0,12}: {1}{2}</source>
-            <target state="translated">限制 {0, 12}: {1}{2}</target>
           </trans-unit>
+          <trans-unit id="constraint">
+            <source>Constraint {0}: {1}{2}</source>
+            <target state="translated">限制 {0}: {1}{2}</target>
+          </trans-unit>
+          <trans-unit id="userconstraint">
+            <source>Your requirement</source>
+            <target state="translated">您的要求</target>
           </trans-unit>
         </group>
       </group>
