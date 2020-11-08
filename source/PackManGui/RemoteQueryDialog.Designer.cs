@@ -246,7 +246,9 @@ namespace Zbx1425.PackManGui
 			this.Controls.Add(this.panel2);
 			this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(239)))), ((int)(((byte)(241)))));
 			this.Name = "RemoteQueryDialog";
+			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.Text = "Select Package to Install";
+			this.Load += new System.EventHandler(this.RemoteQueryDialogLoad);
 			this.mainTabControl.ResumeLayout(false);
 			this.tabPageWarning.ResumeLayout(false);
 			this.tabPageWarning.PerformLayout();

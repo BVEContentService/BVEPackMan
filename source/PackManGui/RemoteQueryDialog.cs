@@ -18,6 +18,7 @@ namespace Zbx1425.PackManGui {
 		private readonly ITranslation i18n;
 		private readonly ILocalRegistry localReg;
 		private readonly IRemoteRegistry remoteReg;
+		private readonly bool updowngrade;
 		
 		private Color accentColor = Color.FromArgb(80, 205, 206);
 		
@@ -25,7 +26,9 @@ namespace Zbx1425.PackManGui {
 		
 		public Identifier SelectedIdentifier { get; private set; }
 		
-		public RemoteQueryDialog(Context ctx, Identifier id = default(Identifier)) {
+		public Version SelectedVersion { get; private set; }
+		
+		public RemoteQueryDialog(Context ctx, Identifier id = default(Identifier), bool updowngrade = false) {
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
@@ -36,17 +39,25 @@ namespace Zbx1425.PackManGui {
 			this.localReg = ctx.LocalRegistry;
 			this.remoteReg = ctx.RemoteRegistry;
 			this.SelectedIdentifier = id;
-			
+			this.updowngrade = updowngrade;
+		}
+		
+		async void RemoteQueryDialogLoad(object sender, EventArgs e) {
 			if (SelectedIdentifier != default(Identifier)) {
 				textName.Text = SelectedIdentifier.Name;
 				btnSearch.Enabled = textName.Enabled = btnOK.Enabled = btnCancel.Enabled = false;
+				textName.Text = SelectedIdentifier.GuidOrName();
 				showProgress("TODO: Loading. Please wait...");
-				Task.Run(async () => {
-					await fetchPack(SelectedIdentifier.Name);
-					this.Invoke(new Action(() => {
-						btnCancel.Enabled = true;
-					}));
-				});
+				try {
+					await fetchPack(SelectedIdentifier);
+					if (updowngrade) {
+						mainTabControl.SelectedTab = tabPageVerSel;
+					}
+				} catch (Exception ex) {
+					showProgress(ex.ToString());
+					btnSearch.Enabled = true;
+				}
+				btnCancel.Enabled = true;
 			} else {
 				btnOK.Enabled = false;
 				showProgress("TODO: Please enter package identifier name and press 'Search'.");
@@ -113,7 +124,8 @@ namespace Zbx1425.PackManGui {
 			}
 			infoPanel.ResumeLayout();
 			int vernum = 0;
-			foreach (var ver in pack.AvailableVersions) {
+			// TODO: Check Dependencies, Installable
+			foreach (var ver in pack.AvailableVersions.Reverse()) {
 				var text = ver.Key.ToString();
 				if (vernum == 0)
 					text += " (Latest)";
@@ -126,6 +138,7 @@ namespace Zbx1425.PackManGui {
 				});
 				vernum++;
 			}
+			// TODO: Check Dependencies
 			bool hasWarning = false;
 			if (hasWarning) {
 				if (!mainTabControl.TabPages.Contains(tabPageWarning))
@@ -137,15 +150,27 @@ namespace Zbx1425.PackManGui {
 		}
 		
 		async void BtnSearchClick(object sender, EventArgs e) {
+			bool wasTextNameEnabled = textName.Enabled;
 			btnSearch.Enabled = textName.Enabled = btnOK.Enabled = btnCancel.Enabled = false;
 			showProgress("TODO: Loading. Please wait...");
-			await fetchPack(textName.Text);
-			btnSearch.Enabled = textName.Enabled = btnCancel.Enabled = true;
+			Guid guid;
+			try {
+				if (Guid.TryParse(textName.Text, out guid)) {
+					await fetchPack(new Identifier(guid));
+				} else {
+					await fetchPack(new Identifier(textName.Text));
+				}
+				btnSearch.Enabled = textName.Enabled = btnCancel.Enabled = true;
+			} catch (Exception ex) {
+				showProgress(ex.ToString());
+				btnSearch.Enabled = btnCancel.Enabled = true;
+				textName.Enabled = wasTextNameEnabled;
+			}
 		}
 		
-		async Task fetchPack(string rawID) {
+		async Task fetchPack(Identifier id) {
 			var ctx = new Context(localReg, remoteReg, i18n);
-			RemotePackageInfo pack = await remoteReg.QueryPackage(ctx, new Identifier(rawID));
+			RemotePackageInfo pack = await remoteReg.QueryPackage(ctx, id);
 			if (pack == null || pack.AvailableVersions.Count < 1) {
 				SelectedIdentifier = default(Identifier);
 				btnOK.Enabled = false;
@@ -159,6 +184,11 @@ namespace Zbx1425.PackManGui {
 		}
 		
 		void BtnOKClick(object sender, EventArgs e) {
+			foreach (var rbtn in versionPanel.Controls) {
+				if ((rbtn as RadioButton).Checked) {
+					SelectedVersion = (rbtn as RadioButton).Tag as Version;
+				}
+			}
 			this.DialogResult = DialogResult.OK;
 			Close();
 		}

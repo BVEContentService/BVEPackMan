@@ -59,7 +59,7 @@ namespace Zbx1425.OpenBveRegistry {
 				throw new PackageNotFoundException(ctx, id);
 			
 			// Double-check with OpenBVE Package Manager
-			List<Package> brokenDependancies = Database.CheckUninstallDependancies(currentPackage.Dependancies.ToList());
+			List<Package> brokenDependancies = Database.CheckUninstallDependancies(new List<Package>(new[] {currentPackage}));
 			if (brokenDependancies.Count != 0)
 				throw new BrokenDependencyException(ctx, brokenDependancies);
 			await UncheckedRemove(currentPackage, logCallback, progressCallback);

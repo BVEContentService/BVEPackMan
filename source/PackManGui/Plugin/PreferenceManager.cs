@@ -7,14 +7,14 @@ namespace Zbx1425.PackManGui.Plugin {
   
 	internal static class PreferenceManager {
 		
-		public static Preference Config;
+		public static PreferenceConfig Config;
 		
 		public static readonly string ConfigPath = Path.Combine(
 			                                            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
 			                                            "Zbx1425.PWPackMan", "PackManGui", "Preference.xml");
   		
 		public static void LoadConfig() {
-			Config = File.Exists(ConfigPath) ? Preference.FromFile(ConfigPath) : new Preference();
+			Config = File.Exists(ConfigPath) ? PreferenceConfig.FromFile(ConfigPath) : new PreferenceConfig();
 			if (Config.RemoteRegistry == null ||
 			    !RegistryManager.Config.RemoteRegisteries.Contains(Config.RemoteRegistry)) {
 				if (RegistryManager.Config.RemoteRegisteries.Count < 1) {

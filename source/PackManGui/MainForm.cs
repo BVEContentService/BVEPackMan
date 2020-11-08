@@ -13,9 +13,10 @@ namespace Zbx1425.PackManGui {
 	/// <summary>
 	/// Description of MainForm.
 	/// </summary>
-	public partial class MainForm : Form {
+	public sealed partial class MainForm : Form {
 		
 		public MainForm() {
+			this.Font = new Font(SystemFonts.CaptionFont.FontFamily, 12F, FontStyle.Regular, GraphicsUnit.Pixel);
 			InitializeComponent();
 			btnInstallPack.Text = I._("bpmgui_mainform_btninstallpack");
 			btnUninstallPack.Text = I._("bpmgui_mainform_btnuninstallpack");
@@ -224,71 +225,15 @@ namespace Zbx1425.PackManGui {
 		}
 		
 		async void BtnInstallPackClick(object sender, EventArgs e) {
-			var context = new Context(
-				              localRegistryListBox.SelectedItem as ILocalRegistry,
-				              PreferenceManager.Config.RemoteRegistry,
-				              PreferenceManager.Config.Translation
-			              );
-			var isd = new RemoteQueryDialog(context);
-			if (isd.ShowDialog() != DialogResult.OK) return;
-			var id = isd.SelectedIdentifier;
-			var progCtrl = new ProgressControl() {
-				BoxColor = Color.FromArgb(55, 57, 46),
-				BarFillColor = Color.FromArgb(80, 205, 206),
-				ForeColor = Color.FromArgb(250, 250, 250),
-				LogLevel = LogLevel.Debug,
-				Dock = DockStyle.Fill
-			};
-			Controls.Add(progCtrl);
-			mainMenuStrip.Enabled = false;
-			progCtrl.BringToFront();
-			progCtrl.btnOK.Text = I._("bpmgui_mainform_ok");
-			progCtrl.btnCancel.Text = I._("bpmgui_mainform_cancel");
-			progCtrl.progressBar.TextColor = Color.Black;
-			LogHandler pushLog = (level, msg) => 
-				Invoke((Action<LogLevel, string>)progCtrl.PushList, level, msg);
-			ProgressHandler pushProgress = (total, finished, ratio) => 
-						BeginInvoke((Action<long?, long?, double?>)progCtrl.PushBar, 
-				                                   total, finished, ratio);
-			try {
-				var sequence = await context.DoFetch(id, new VersionRange(null, null),
-					               pushLog, pushProgress);
-				if (sequence.Any()) {
-					pushLog(LogLevel.Info, I._("bpmgui_mainform_installconfirm",
-						string.Join(Environment.NewLine, sequence.Select(
-                         	t => "  " + t.Item1.ToString() + " " + t.Item2.ToString()
-                     ).ToArray())));
-					pushProgress(null, null, 200);
-					progCtrl.progressBar.CustomText = I._("bpmgui_msg_info");
-					bool shouldContinue = await progCtrl.ShowBtnChoice();
-					if (shouldContinue) {
-						progCtrl.PushBar(null, null, 0);
-						progCtrl.progressBar.CustomText = "";
-						await context.DoInstall(sequence, pushLog, pushProgress);
-					} else {
-						mainMenuStrip.Enabled = true;
-						Controls.Remove(progCtrl);
-						return;
-					}
-				}
-				pushLog(LogLevel.Info, I._("bpmgui_msg_complete"));
-				pushProgress(null, null, 200);
-				progCtrl.BarFillColor = Color.LawnGreen;
-				progCtrl.progressBar.CustomText = I._("bpmgui_msg_complete");
-			} catch (Exception ex) {
-				pushLog(LogLevel.Error, ex.ToString());
-				pushProgress(null, null, 200);
-				progCtrl.BarFillColor = Color.Red;
-				progCtrl.progressBar.CustomText = I._("bpmgui_msg_err");
-				
-			}
-			await progCtrl.ShowBtnWait();
-			mainMenuStrip.Enabled = true;
-			Controls.Remove(progCtrl);
+			if (localRegistryListBox.SelectedItem == null) return;
+			var form = new ManipulationForm(localRegistryListBox.SelectedItem as ILocalRegistry, true);
+			form.ShowDialog();
 		}
 		
 		void BtnUninstallPackClick(object sender, EventArgs e) {
-	
+			if (localRegistryListBox.SelectedItem == null) return;
+			var form = new ManipulationForm(localRegistryListBox.SelectedItem as ILocalRegistry);
+			form.ShowDialog();
 		}
 	}
 }

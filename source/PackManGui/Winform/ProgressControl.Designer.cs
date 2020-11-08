@@ -49,7 +49,7 @@ namespace Zbx1425.PackManGui
 			this.progressBar.FinishedWork = null;
 			this.progressBar.Location = new System.Drawing.Point(10, 10);
 			this.progressBar.Name = "progressBar";
-			this.progressBar.ProgressColor = System.Drawing.Color.LightGreen;
+			this.progressBar.ProgressColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(205)))), ((int)(((byte)(206)))));
 			this.progressBar.Ratio = null;
 			this.progressBar.Size = new System.Drawing.Size(280, 23);
 			this.progressBar.TabIndex = 2;

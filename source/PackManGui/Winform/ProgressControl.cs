@@ -67,11 +67,18 @@ namespace Zbx1425.PackManGui {
 		}
 		
 		public void ResetBar() {
+			progressBar.CustomText = "";
+			progressBar.ProgressColor = Color.FromArgb(80, 205, 206);
 			PushBar(null, null, null);
 		}
 		
 		public void ResetList() {
 			progressBox.Text = "";
+		}
+		
+		public void ResetUI() {
+			ResetBar();
+			ResetList();
 		}
 		
 		private async Task<Button> WaitBtn(Button btn) {

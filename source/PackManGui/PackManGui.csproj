@@ -66,13 +66,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="I18n.cs" />
-    <Compile Include="Plugin\Preference.cs" />
+    <Compile Include="ManipulationForm.cs" />
+    <Compile Include="ManipulationForm.Designer.cs">
+      <DependentUpon>ManipulationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugin\PreferenceConfig.cs" />
     <Compile Include="Plugin\PreferenceManager.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Plugin\PluginConfig.cs" />
+    <Compile Include="Plugin\RegistryConfig.cs" />
     <Compile Include="Plugin\PluginManager.cs" />
     <Compile Include="Plugin\RegistryManager.cs" />
     <Compile Include="Program.cs" />
@@ -83,11 +87,13 @@
     </Compile>
     <Compile Include="Winform\DebugInputBox.cs" />
     <Compile Include="Winform\Extensions.cs" />
+    <Compile Include="Winform\PackageListBox.cs" />
+    <Compile Include="Winform\RegistryListBox.cs" />
     <Compile Include="Winform\ProgressControl.cs" />
     <Compile Include="Winform\ProgressControl.Designer.cs">
       <DependentUpon>ProgressControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Winform\RegistryListBox.cs" />
+    <Compile Include="Winform\PropertyListBox.cs" />
     <Compile Include="Winform\TextProgressBar.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +108,9 @@
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ManipulationForm.resx">
+      <DependentUpon>ManipulationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RemoteQueryDialog.resx">
       <DependentUpon>RemoteQueryDialog.cs</DependentUpon>

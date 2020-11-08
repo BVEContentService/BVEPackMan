@@ -7,7 +7,7 @@ namespace Zbx1425.PackManGui
 		/// Designer variable used to keep track of non-visual components.
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
-		private LocalRegistryListBox localRegistryListBox;
+		private RegistryListBox localRegistryListBox;
 		private System.Windows.Forms.Panel contextActionPanel;
 		private System.Windows.Forms.Button btnUninstallPack;
 		private System.Windows.Forms.Button btnInstallPack;
@@ -40,7 +40,7 @@ namespace Zbx1425.PackManGui
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.localRegistryListBox = new Zbx1425.PackManGui.LocalRegistryListBox();
+			this.localRegistryListBox = new Zbx1425.PackManGui.RegistryListBox();
 			this.contextActionPanel = new System.Windows.Forms.Panel();
 			this.btnRemove = new System.Windows.Forms.Button();
 			this.btnMoveDown = new System.Windows.Forms.Button();
@@ -65,7 +65,6 @@ namespace Zbx1425.PackManGui
 			this.localRegistryListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.localRegistryListBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
 			this.localRegistryListBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-			this.localRegistryListBox.FormattingEnabled = true;
 			this.localRegistryListBox.IDColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(155)))), ((int)(((byte)(156)))));
 			this.localRegistryListBox.ItemHeight = 12;
 			this.localRegistryListBox.Location = new System.Drawing.Point(13, 73);
@@ -74,11 +73,12 @@ namespace Zbx1425.PackManGui
 			this.localRegistryListBox.SealColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(205)))), ((int)(((byte)(206)))));
 			this.localRegistryListBox.SecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
 			this.localRegistryListBox.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(77)))), ((int)(((byte)(66)))));
+			this.localRegistryListBox.ShowSeal = true;
 			this.localRegistryListBox.Size = new System.Drawing.Size(659, 322);
 			this.localRegistryListBox.TabIndex = 0;
 			this.localRegistryListBox.WarnColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(213)))), ((int)(((byte)(79)))));
 			this.localRegistryListBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.LocalRegistryListBox1DrawItem);
-			this.localRegistryListBox.SelectedValueChanged += new System.EventHandler(this.LocalRegistryListBoxSelectedValueChanged);
+			this.localRegistryListBox.SelectedIndexChanged += new System.EventHandler(this.LocalRegistryListBoxSelectedValueChanged);
 			// 
 			// contextActionPanel
 			// 
@@ -211,10 +211,11 @@ namespace Zbx1425.PackManGui
 			this.Controls.Add(this.contextActionPanel);
 			this.Controls.Add(this.localRegistryListBox);
 			this.Controls.Add(this.mainMenuStrip);
-			this.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(134)));
 			this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(236)))), ((int)(((byte)(239)))), ((int)(((byte)(241)))));
 			this.MainMenuStrip = this.mainMenuStrip;
+			this.MinimumSize = new System.Drawing.Size(700, 450);
 			this.Name = "MainForm";
+			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
 			this.Text = "GUI WIP";
 			this.Load += new System.EventHandler(this.MainFormLoad);
 			this.ResizeBegin += new System.EventHandler(this.MainFormResizeBegin);

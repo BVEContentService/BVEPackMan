@@ -6,21 +6,21 @@ using Zbx1425.PWPackMan;
 
 namespace Zbx1425.PackManGui.Plugin {
   
-	public class Preference {
+	public class PreferenceConfig {
   
 		public IRemoteRegistry RemoteRegistry;
 		
 		public ITranslation Translation;
 		
-		public static Preference FromFile(string file) {
-			var configSerializer = new DataContractSerializer(typeof(Preference), PluginManager.AllPlugins);
+		public static PreferenceConfig FromFile(string file) {
+			var configSerializer = new DataContractSerializer(typeof(PreferenceConfig), PluginManager.AllPlugins);
 			var wrapper = new StringReader(File.ReadAllText(file));
 			var xmlReader = new XmlTextReader(wrapper);
-			return (Preference)configSerializer.ReadObject(xmlReader);
+			return (PreferenceConfig)configSerializer.ReadObject(xmlReader);
 		}
 		
 		public void Save(string file) {
-			var configSerializer = new DataContractSerializer(typeof(Preference), PluginManager.AllPlugins);
+			var configSerializer = new DataContractSerializer(typeof(PreferenceConfig), PluginManager.AllPlugins);
 			using (var writer = new StreamWriter(file)) 
 			using (var xmlWriter = new XmlTextWriter(writer)){
 				configSerializer.WriteObject(xmlWriter, this);

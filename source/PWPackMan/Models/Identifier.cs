@@ -61,11 +61,15 @@ namespace Zbx1425.PWPackMan.Models {
 		}
 
 		public bool Equals(Identifier other) {
-			return this.HasGuid == other.HasGuid && this.Guid == other.Guid && this.HasName == other.HasName && this.Name == other.Name;
+			if (this.HasGuid && other.HasGuid) return this.Guid == other.Guid;
+			if (this.HasName && other.HasName) return this.Name == other.Name;
+			return (!this.HasGuid && !this.HasName && !other.HasGuid && !other.HasName);
 		}
 
 		public override int GetHashCode() {
 			int hashCode = 0;
+			if (this.HasGuid) return Guid.GetHashCode();
+			if (this.HasName) return Name.GetHashCode();
 			unchecked {
 				hashCode += 1000000007 * HasGuid.GetHashCode();
 				hashCode += 1000000009 * Guid.GetHashCode();

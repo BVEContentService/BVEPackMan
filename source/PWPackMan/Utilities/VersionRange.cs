@@ -20,11 +20,11 @@ namespace Zbx1425.PWPackMan.Utilities {
 		
 		public override string ToString() {
 			if (Minimum != null && Maximum != null) {
-				return string.Format("[{0}-{1}]", Minimum, Maximum);
+				return string.Format("[{0} - {1}]", Minimum, Maximum);
 			} else if (Minimum != null) {
-				return string.Format("[{0}&Above]", Minimum);
+				return string.Format("[{0} &Above]", Minimum);
 			} else if (Maximum != null) {
-				return string.Format("[Below&{1}]", Maximum);
+				return string.Format("[Below& {0}]", Maximum);
 			} else {
 				return "[All]";
 			}

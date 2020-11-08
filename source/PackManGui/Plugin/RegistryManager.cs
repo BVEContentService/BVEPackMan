@@ -9,7 +9,7 @@ namespace Zbx1425.PackManGui.Plugin {
   
 	internal static class RegistryManager {
 		
-		public static PluginConfig Config;
+		public static RegistryConfig Config;
 		
 		// Translations are specially treated, because they cannot be configured
 		public static List<ITranslation> Translations = new List<ITranslation>();
@@ -20,9 +20,9 @@ namespace Zbx1425.PackManGui.Plugin {
   
 		public static void LoadConfig() {
 			if (File.Exists(ConfigPath)) {
-				Config = PluginConfig.FromFile(ConfigPath);
+				Config = RegistryConfig.FromFile(ConfigPath);
 			} else {
-				Config = new PluginConfig();
+				Config = new RegistryConfig();
 				Directory.CreateDirectory(Path.GetDirectoryName(ConfigPath));
 				Config.Save(ConfigPath);
 			}
@@ -75,7 +75,12 @@ namespace Zbx1425.PackManGui.Plugin {
 		}
 		
 		public static void SaveConfig() {
-			Config.Save(ConfigPath);
+			var savingConfig = Config.ShallowClone();
+			savingConfig.LocalRegisteries = savingConfig.LocalRegisteries
+				.Where(r => !r.IsFromAutoDetect).ToList();
+			savingConfig.RemoteRegisteries = savingConfig.RemoteRegisteries
+				.Where(r => !r.IsFromAutoDetect).ToList();
+			savingConfig.Save(ConfigPath);
 		}
 	}
 }
