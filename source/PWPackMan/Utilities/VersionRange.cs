@@ -13,9 +13,13 @@ namespace Zbx1425.PWPackMan.Utilities {
 			Maximum = maximum;
 		}
 		
-		public bool MatchVersion(Version version) {
+		public bool ContainsVersion(Version version) {
 			return (Minimum == null || version >= Minimum) && 
 				(Maximum == null || version <= Maximum);
+		}
+		
+		public bool NotEmpty {
+			get { return !(Minimum != null && Maximum != null && Minimum > Maximum); }
 		}
 		
 		public override string ToString() {

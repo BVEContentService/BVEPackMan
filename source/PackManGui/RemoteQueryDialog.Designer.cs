@@ -237,8 +237,7 @@ namespace Zbx1425.PackManGui
 			// 
 			// RemoteQueryDialog
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(37)))), ((int)(((byte)(26)))));
 			this.ClientSize = new System.Drawing.Size(684, 411);
 			this.Controls.Add(this.mainTabControl);

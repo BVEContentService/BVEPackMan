@@ -70,6 +70,7 @@ namespace Zbx1425.PackManGui
 			this.localRegistryListBox.Location = new System.Drawing.Point(13, 73);
 			this.localRegistryListBox.Name = "localRegistryListBox";
 			this.localRegistryListBox.SealBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
+			this.localRegistryListBox.SealCenter = 295;
 			this.localRegistryListBox.SealColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(205)))), ((int)(((byte)(206)))));
 			this.localRegistryListBox.SecondaryColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(210)))), ((int)(((byte)(210)))));
 			this.localRegistryListBox.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(77)))), ((int)(((byte)(66)))));
@@ -197,11 +198,11 @@ namespace Zbx1425.PackManGui
 			// 
 			// menuSettings
 			// 
-			this.menuSettings.Enabled = false;
 			this.menuSettings.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.menuSettings.Name = "menuSettings";
 			this.menuSettings.Size = new System.Drawing.Size(66, 21);
 			this.menuSettings.Text = "Settings";
+			this.menuSettings.Click += new System.EventHandler(this.MenuSettingsClick);
 			// 
 			// MainForm
 			// 

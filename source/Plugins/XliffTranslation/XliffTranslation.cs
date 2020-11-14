@@ -134,5 +134,10 @@ namespace Zbx1425.XliffTranslation {
 
 		#endregion
 		
+		public override string ToString() {
+			SwitchToLanguage();
+			return Translate("bpmplugin_languagename");
+		}
+		
 	}
 }

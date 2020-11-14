@@ -2,11 +2,18 @@
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace Zbx1425.PackManGui {
+namespace Zbx1425.BveCSRegistry {
   
 	public static class DebugInputBox {
+		
+		public static string ShowInputBox(string title, string promptText, string currentValue) {
+			var form = InputBox(title, promptText, currentValue);
 
-		public static string InputBox(string title, string promptText) {
+			DialogResult dialogResult = form.ShowDialog();
+			return dialogResult == DialogResult.OK ? form.Controls["textBox"].Text : "";
+		}
+
+		public static Form InputBox(string title, string promptText, string currentValue) {
 			Form form = new Form();
 			Label label = new Label();
 			TextBox textBox = new TextBox();
@@ -15,6 +22,8 @@ namespace Zbx1425.PackManGui {
 
 			form.Text = title;
 			label.Text = promptText;
+			textBox.Text = currentValue;
+			textBox.Name = "textBox";
 
 			buttonOk.Text = "OK";
 			buttonCancel.Text = "Cancel";
@@ -45,9 +54,8 @@ namespace Zbx1425.PackManGui {
 			form.MaximizeBox = false;
 			form.AcceptButton = buttonOk;
 			form.CancelButton = buttonCancel;
-
-			DialogResult dialogResult = form.ShowDialog();
-			return dialogResult == DialogResult.OK ? textBox.Text : "";
+			
+			return form;
 		}
 	}
 }

@@ -29,9 +29,7 @@ namespace Zbx1425.PackManGui {
 		public Version SelectedVersion { get; private set; }
 		
 		public RemoteQueryDialog(Context ctx, Identifier id = default(Identifier), bool updowngrade = false) {
-			//
-			// The InitializeComponent() call is required for Windows Forms designer support.
-			//
+			this.Font = new Font(SystemFonts.CaptionFont.FontFamily, 12F, FontStyle.Regular, GraphicsUnit.Pixel);
 			InitializeComponent();
 			
 			this.ctx = ctx;
@@ -76,7 +74,8 @@ namespace Zbx1425.PackManGui {
 			}
 			progressLabel.Text = text;
 			if (!Controls.Contains(progressLabel)) {
-				if (Controls.Contains(mainTabControl)) Controls.Remove(mainTabControl);
+				if (Controls.Contains(mainTabControl))
+					Controls.Remove(mainTabControl);
 				Controls.Add(progressLabel);
 				progressLabel.BringToFront();
 			}
@@ -84,13 +83,18 @@ namespace Zbx1425.PackManGui {
 		
 		private void showResult() {
 			if (!Controls.Contains(mainTabControl)) {
-				if (Controls.Contains(progressLabel)) Controls.Remove(progressLabel);
+				if (Controls.Contains(progressLabel))
+					Controls.Remove(progressLabel);
 				Controls.Add(mainTabControl);
 				mainTabControl.BringToFront();
 			}
 		}
 		
 		private void inflateUI(RemotePackageInfo pack) {
+			var rangeTuple = DependencyHelper.GetSuitableRange(ctx, pack);
+			var suitableRange = rangeTuple.Item1;
+			var packagesToBlame = rangeTuple.Item2;
+			
 			Font biggerFont = new Font(this.Font.FontFamily, 14, FontStyle.Regular, GraphicsUnit.Pixel);
 			infoPanel.Controls.Clear();
 			versionPanel.Controls.Clear();
@@ -124,25 +128,51 @@ namespace Zbx1425.PackManGui {
 			}
 			infoPanel.ResumeLayout();
 			int vernum = 0;
-			// TODO: Check Dependencies, Installable
+			bool foundLatestAvailableVersion = false;
 			foreach (var ver in pack.AvailableVersions.Reverse()) {
 				var text = ver.Key.ToString();
 				if (vernum == 0)
 					text += " (Latest)";
+				bool versionValid = suitableRange.ContainsVersion(ver.Key);
+				if (versionValid && !foundLatestAvailableVersion && vernum > 0) {
+					text += " (Latest Installable)";
+				}
 				versionPanel.Controls.Add(new RadioButton() {
 					Size = new Size(300, 30),
-					Checked = vernum == 0,
+					Enabled = versionValid,
+					Checked = versionValid && !foundLatestAvailableVersion,
 					Font = biggerFont,
 					Tag = ver.Key,
 					Text = text
 				});
+				foundLatestAvailableVersion |= versionValid;
 				vernum++;
 			}
-			// TODO: Check Dependencies
-			bool hasWarning = false;
+			btnOK.Enabled = foundLatestAvailableVersion;
+			bool hasWarning = !foundLatestAvailableVersion || !suitableRange.ContainsVersion(pack.AvailableVersions.Last().Key);
 			if (hasWarning) {
 				if (!mainTabControl.TabPages.Contains(tabPageWarning))
 					mainTabControl.TabPages.Insert(0, tabPageWarning);
+				mainTabControl.SelectedIndex = 0;
+				var sb = new System.Text.StringBuilder();
+				if (foundLatestAvailableVersion) {
+					sb.AppendLine(I._("bpmcore_context_cannotlatest",
+						pack.AvailableVersions.Keys.Last(), pack.ID));
+				} else {
+					if (!suitableRange.NotEmpty) {
+						sb.AppendLine(I._("bpmcore_exception_badrange1"));
+					} else {
+						sb.AppendLine(I._("bpmcore_exception_badrange2"));
+					}
+				}
+				sb.AppendLine(I._("bpmcore_exception_blame"));
+				foreach (var item in packagesToBlame) {
+					sb.AppendLine(I._("bpmcore_exception_constraint", item.Item1.ToString(), 
+						string.IsNullOrEmpty(item.Item2[0]) ? I._("bpmcore_exception_userconstraint") : item.Item2[0],
+						item.Item2.Length > 1 ? "...(" + (item.Item2.Length - 1).ToString() + "+)" : ""));
+				}
+				textWarn.Font = biggerFont;
+				textWarn.Text = sb.ToString();
 			} else {
 				if (mainTabControl.TabPages.Contains(tabPageWarning))
 					mainTabControl.TabPages.Remove(tabPageWarning);
@@ -184,6 +214,7 @@ namespace Zbx1425.PackManGui {
 		}
 		
 		void BtnOKClick(object sender, EventArgs e) {
+			// TODO: Force Popup
 			foreach (var rbtn in versionPanel.Controls) {
 				if ((rbtn as RadioButton).Checked) {
 					SelectedVersion = (rbtn as RadioButton).Tag as Version;

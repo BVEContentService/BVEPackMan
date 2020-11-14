@@ -2,18 +2,6 @@
 <xliff version="1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2.xsd" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 	<file datatype="plaintext" original="en-US.xlf" source-language="en-US">
 		<body>
-			<group id="language">
-				<trans-unit id="name">
-					<source>English (United States)</source>
-				</trans-unit>
-				<trans-unit id="contributors">
-					<source>Unknown</source>
-				</trans-unit>
-				<trans-unit id="last_updated">
-					<source>2020-11-04</source>
-				</trans-unit>
-			</group>
-      
       <group id="bpmcore">
         <group id="context">
           <trans-unit id="downloadmetadata">
@@ -152,6 +140,9 @@ Confirm?</source>
       </group>
       
       <group id="bpmplugin">
+        <trans-unit id="languagename">
+					<source>English (United States)</source>
+				</trans-unit>
         <group id="openbve">
           <trans-unit id="friendlyname">
             <source>OpenBVE</source>
@@ -214,6 +205,22 @@ Confirm?</source>
             </trans-unit>
           </group>
           <group id="msg">
+          </group>
+        </group>
+        <group id="bvecs">
+          <trans-unit id="friendlyname">
+            <source>BVE Content Service</source>
+          </trans-unit>
+          <group id="configform">
+            <trans-unit id="title">
+              <source>API Base URL</source>
+            </trans-unit>
+            <trans-unit id="prompt">
+              <source>Please input a API Base URL(with protocol):</source>
+            </trans-unit>
+            <trans-unit id="invalidurl">
+              <source>The URL is not valid.</source>
+            </trans-unit>
           </group>
         </group>
       </group>

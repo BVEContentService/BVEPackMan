@@ -61,7 +61,7 @@ namespace Zbx1425.PWPackMan {
 				var installedPackInfo = LocalRegistry.QueryInstalledPackage(this, elem.Item1);
 				
 				// Skip if the dependency is already installed and the version satisfies the requirement
-				if (installedPackInfo != null && elem.Item2.MatchVersion(installedPackInfo.Version)) {
+				if (installedPackInfo != null && elem.Item2.ContainsVersion(installedPackInfo.Version)) {
 					logCallback(LogLevel.Debug, Translation.Translate("bpmcore_context_alreadyinstalled", elem.Item1.ToString(), installedPackInfo.Version));
 					continue;
 				}

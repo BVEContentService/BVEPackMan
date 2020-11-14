@@ -29,7 +29,7 @@ namespace Zbx1425.PWPackMan.Exceptions {
 		
 		private static string GenerateMessage(Context ctx, VersionRange finalRange, List<Tuple<VersionRange, string[]>> blame) {
 			var sb = new StringBuilder();
-			if (finalRange.Minimum != null && finalRange.Maximum != null && finalRange.Minimum > finalRange.Maximum) {
+			if (!finalRange.NotEmpty) {
 				sb.AppendLine(ctx.Translation.Translate("bpmcore_exception_badrange1"));
 			} else {
 				sb.AppendLine(ctx.Translation.Translate("bpmcore_exception_badrange2"));

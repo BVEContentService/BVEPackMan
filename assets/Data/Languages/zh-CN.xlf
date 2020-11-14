@@ -2,21 +2,6 @@
 <xliff version="1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2.xsd" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 	<file datatype="plaintext" original="en-US.xlf" source-language="en-US" target-language="zh-CN">
 		<body>
-			<group id="language">
-				<trans-unit id="name">
-					<source>English (United States)</source>
-					<target state="translated">中文 (大陆简体)</target>
-				</trans-unit>
-				<trans-unit id="contributors">
-					<source>Unknown</source>
-					<target state="translated">ZBX</target>
-				</trans-unit>
-				<trans-unit id="last_updated">
-					<source>2020-11-04</source>
-					<target state="translated">2020-11-04</target>
-				</trans-unit>
-			</group>
-      
       <group id="bpmcore">
         <group id="context">
           <trans-unit id="downloadmetadata">
@@ -198,6 +183,10 @@ Confirm?</source>
       </group>
       
       <group id="bpmplugin">
+      <trans-unit id="languagename">
+					<source>English (United States)</source>
+          <target state="translated">中文 (大陆简体)</target>
+				</trans-unit>
         <group id="openbve">
           <trans-unit id="friendlyname">
             <source>OpenBVE</source>
@@ -263,6 +252,26 @@ NOTE: You'd better not use folders inside Program Files!</source>
             </trans-unit>
           </group>
           <group id="msg">
+          </group>
+        </group>
+        <group id="bvecs">
+          <trans-unit id="friendlyname">
+            <source>BVE Content Service</source>
+            <target state="translated">BVE资源集中索引系统</target>
+          </trans-unit>
+          <group id="configform">
+            <trans-unit id="title">
+              <source>API Base URL</source>
+              <target state="translated">API基地址</target>
+            </trans-unit>
+            <trans-unit id="prompt">
+              <source>Please input a API Base URL(with protocol):</source>
+              <target state="translated">请输入API基地址(带协议):</target>
+            </trans-unit>
+            <trans-unit id="invalidurl">
+              <source>The URL is not valid.</source>
+              <target state="translated">这个URL是无效的。</target>
+            </trans-unit>
           </group>
         </group>
       </group>

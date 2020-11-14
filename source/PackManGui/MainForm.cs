@@ -18,6 +18,10 @@ namespace Zbx1425.PackManGui {
 		public MainForm() {
 			this.Font = new Font(SystemFonts.CaptionFont.FontFamily, 12F, FontStyle.Regular, GraphicsUnit.Pixel);
 			InitializeComponent();
+			ApplyLanguage();
+		}
+		
+		void ApplyLanguage() {
 			btnInstallPack.Text = I._("bpmgui_mainform_btninstallpack");
 			btnUninstallPack.Text = I._("bpmgui_mainform_btnuninstallpack");
 			btnConfig.Text = I._("bpmgui_mainform_btnconfig");
@@ -234,6 +238,12 @@ namespace Zbx1425.PackManGui {
 			if (localRegistryListBox.SelectedItem == null) return;
 			var form = new ManipulationForm(localRegistryListBox.SelectedItem as ILocalRegistry);
 			form.ShowDialog();
+		}
+		
+		void MenuSettingsClick(object sender, EventArgs e) {
+			var settingForm = new SettingForm();
+			settingForm.ShowDialog();
+			ApplyLanguage();
 		}
 	}
 }

@@ -45,7 +45,24 @@ namespace Zbx1425.BveCSRegistry {
 		public string PlatformName { get { return "bvecs"; } }
 		
 		public bool ShowConfigWindow(IWin32Window owner, ITranslation i18n) {
-			throw new NotImplementedException();
+			var inputBox = DebugInputBox.InputBox(
+				i18n.Translate("bpmplugin_bvecs_configform_title"),
+				i18n.Translate("bpmplugin_bvecs_configform_prompt"),
+				ApiBaseUrl
+			);
+			if (inputBox.ShowDialog(owner) == DialogResult.OK) {
+				Uri idontcare;
+				if (Uri.TryCreate(inputBox.Controls["textBox"].Text, UriKind.Absolute, out idontcare)) {
+					ApiBaseUrl = inputBox.Controls["textBox"].Text;
+					return true;
+				} else {
+					MessageBox.Show(i18n.Translate("bpmplugin_bvecs_configform_invalidurl"), "Error",
+					                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+					return false;
+				}
+			} else {
+				return false;
+			}
 		}
 		
 		public bool CheckConfig() {
@@ -127,7 +144,9 @@ namespace Zbx1425.BveCSRegistry {
 		public override int GetHashCode() {
 			int hashCode = 0;
 			unchecked {
+				// disable once NonReadonlyReferencedInGetHashCode
 				if (_apiBaseUrl != null)
+					// disable once NonReadonlyReferencedInGetHashCode
 					hashCode += _apiBaseUrl.GetHashCode();
 			}
 			return hashCode;
@@ -146,5 +165,9 @@ namespace Zbx1425.BveCSRegistry {
 		}
 
 		#endregion
+		
+		public override string ToString() {
+			return ApiBaseUrl;
+		}
     }
 }
